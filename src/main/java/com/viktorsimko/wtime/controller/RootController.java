@@ -3,6 +3,7 @@ package com.viktorsimko.wtime.controller;
 import com.viktorsimko.wtime.model.Project;
 import com.viktorsimko.wtime.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,10 @@ public class RootController {
   }
 
   @GetMapping("/projects")
-  public Collection<Project> getProjects() {
+  public Collection<Project> getProjects(Authentication authentication) {
+    System.out.println(authentication.getName());
     return projectService.getProjects();
   }
+
+
 }

@@ -2,6 +2,8 @@ package com.viktorsimko.wtime.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
+
 /**
  * Created by simkoviktor on 2017. 03. 15..
  */
@@ -20,5 +22,10 @@ public class WTimeInitializer extends AbstractAnnotationConfigDispatcherServletI
   @Override
   protected String[] getServletMappings() {
     return new String[] { "/" };
+  }
+
+  @Override
+  protected Filter[] getServletFilters() {
+    return new Filter[] { new CORSFilter() };
   }
 }
