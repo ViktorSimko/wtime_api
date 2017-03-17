@@ -5,13 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -23,7 +21,7 @@ import java.util.Collections;
 public class SecurityController {
 
   @Autowired
-  private InMemoryUserDetailsManager userDetailsManager;
+  private JdbcUserDetailsManager userDetailsManager;
 
   @RequestMapping("/exists/{userName}")
 

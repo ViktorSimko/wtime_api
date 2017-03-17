@@ -1,5 +1,7 @@
 package com.viktorsimko.wtime.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,10 @@ public class Project {
 
   @Column(name = "title")
   private String title;
+
+  @JsonIgnore
+  @Column(name = "user")
+  private String user;
 
   public Project() {
   }
@@ -34,5 +40,13 @@ public class Project {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getUser() {
+    return user;
+  }
+
+  public void setUser(String user) {
+    this.user = user;
   }
 }

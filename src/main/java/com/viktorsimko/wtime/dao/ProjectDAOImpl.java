@@ -19,13 +19,21 @@ public class ProjectDAOImpl implements ProjectDAO {
   private SessionFactory sessionFactory;
 
   @Override
-  public List<Project> getProjects() {
+  public List<Project> getProjects(String userName) {
     Session session = sessionFactory.getCurrentSession();
 
-    Query allProjectsQuery = session.createQuery("from Project");
+    Query allProjectsQuery = session.createQuery("from Project where user = :userName");
+    allProjectsQuery.setParameter("userName", userName);
 
     List<Project> allProjects = allProjectsQuery.getResultList();
 
     return allProjects;
+  }
+
+  @Override
+  public void addProject(Project project) {
+    Session session = sessionFactory.getCurrentSession();
+
+    session.save(project);
   }
 }

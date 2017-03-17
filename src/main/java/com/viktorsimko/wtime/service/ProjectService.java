@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface ProjectService {
 
-  List<Project> getProjects();
+  List<Project> getProjects(String userName);
+
+  void addProject(Project project);
 
 }

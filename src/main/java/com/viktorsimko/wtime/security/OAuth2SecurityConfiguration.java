@@ -1,6 +1,8 @@
 package com.viktorsimko.wtime.security;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,8 +18,11 @@ import org.springframework.security.oauth2.provider.approval.TokenStoreUserAppro
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
+import javax.activation.DataSource;
 import java.util.Properties;
 
 /**
@@ -26,6 +31,8 @@ import java.util.Properties;
 @Configuration
 @EnableWebSecurity
 public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
+  @Autowired
+  private ComboPooledDataSource dataSource;
 
   @Autowired
   private ClientDetailsService clientDetailsService;
@@ -84,9 +91,10 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
-  InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-    final Properties users = new Properties();
-    users.put("wtime_user","wtime_user,ROLE_USER,enabled");
-    return new InMemoryUserDetailsManager(users);
+  JdbcUserDetailsManager inMemoryUserDetailsManager() {
+
+    JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
+    userDetailsManager.setDataSource(dataSource);
+    return userDetailsManager;
   }
 }
