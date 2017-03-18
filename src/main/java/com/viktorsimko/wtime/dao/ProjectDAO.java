@@ -13,4 +13,5 @@ public interface ProjectDAO {
 
   void addProject(Project project);
 
+  Project getProject(String userName, int projectId);
 }

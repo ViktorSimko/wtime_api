@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -35,5 +36,22 @@ public class ProjectDAOImpl implements ProjectDAO {
     Session session = sessionFactory.getCurrentSession();
 
     session.save(project);
+  }
+
+  @Override
+  public Project getProject(String userName, int projectId) {
+    Session session = sessionFactory.getCurrentSession();
+
+    Query projectQuery = session.createQuery("from Project where user = :userName AND id = :id");
+    projectQuery.setParameter("userName", userName);
+    projectQuery.setParameter("id", projectId);
+
+    List<Project> projects = projectQuery.getResultList();
+
+    if (projects.size() == 0) {
+      return null;
+    }
+
+    return projects.get(0);
   }
 }

@@ -24,5 +24,5 @@ CREATE TABLE `project` (
 	`id` int(5) NOT NULL AUTO_INCREMENT,
     `title` varchar(50),
     `user` varchar(50),
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`, `user`)
 );

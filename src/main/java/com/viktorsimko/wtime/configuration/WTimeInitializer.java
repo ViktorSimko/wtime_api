@@ -26,6 +26,6 @@ public class WTimeInitializer extends AbstractAnnotationConfigDispatcherServletI
 
   @Override
   protected Filter[] getServletFilters() {
-    return new Filter[] { new CORSFilter() };
+    return new Filter[] { };
   }
 }
