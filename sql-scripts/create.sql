@@ -13,7 +13,8 @@ CREATE TABLE `users` (
 
 CREATE TABLE `authorities`(
 	`username` varchar(50),
-    `authority` varchar(50)
+    `authority` varchar(50),
+    FOREIGN KEY (`username`) REFERENCES `users`(`username`)
 );
 
 DROP TABLE IF EXISTS `project`;
@@ -24,5 +25,5 @@ CREATE TABLE `project` (
 	`id` int(5) NOT NULL AUTO_INCREMENT,
     `title` varchar(50),
     `user` varchar(50),
-    PRIMARY KEY (`id`, `user`)
+    PRIMARY KEY (`id`)
 );

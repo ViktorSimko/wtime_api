@@ -58,6 +58,7 @@ public class WTimeConfiguration {
       {
        setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
        setProperty("hibernate.show_sql", "true");
+       setProperty("hibernate.hbm2ddl.auto", "update");
       }
     };
   }

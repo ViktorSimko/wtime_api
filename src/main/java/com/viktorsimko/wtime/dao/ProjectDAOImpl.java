@@ -1,6 +1,7 @@
 package com.viktorsimko.wtime.dao;
 
 import com.viktorsimko.wtime.model.Project;
+import com.viktorsimko.wtime.model.Task;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,12 @@ public class ProjectDAOImpl implements ProjectDAO {
     Session session = sessionFactory.getCurrentSession();
 
     session.save(project);
+
+    for (Task task: project.getTasks()) {
+      task.setProject(project);
+      session.save(task);
+    }
+
   }
 
   @Override
