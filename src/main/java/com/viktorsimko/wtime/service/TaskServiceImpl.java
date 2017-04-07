@@ -17,15 +17,19 @@ public class TaskServiceImpl implements TaskService {
   @Autowired
   private TaskDAO taskDAO;
 
+
   @Override
-  @Transactional
-  public Collection<Task> getTasks(String userName) {
-    return null; //taskDAO.getTasks(String userName);
+  public Collection<Task> getTasks(String userName, int projectId) {
+    return null;
   }
 
   @Override
-  @Transactional
-  public void addTask(Task task) {
+  public Task getTask(String userName, int taskId) {
+    return null;
+  }
+
+  @Override
+  public void addTask(int projectId, Task task) {
 
   }
 }

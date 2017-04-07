@@ -24,7 +24,6 @@ public class SecurityController {
   private JdbcUserDetailsManager userDetailsManager;
 
   @RequestMapping("/exists/{userName}")
-
   public boolean userExists(@PathVariable("userName") String userName) {
     UserDetails userDetails = userDetailsManager.loadUserByUsername(userName);
     userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).forEach(System.out::println);

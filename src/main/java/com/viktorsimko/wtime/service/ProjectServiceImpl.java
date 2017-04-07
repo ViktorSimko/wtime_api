@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by simkoviktor on 2017. 03. 15..
- */
 @Service
 public class ProjectServiceImpl implements ProjectService {
 

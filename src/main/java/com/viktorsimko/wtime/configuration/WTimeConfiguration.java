@@ -14,15 +14,21 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.Properties;
 
 /**
- * Created by simkoviktor on 2017. 03. 15..
+ * The configuration class for the project.
+ * It sets up the necessary beans.
  */
-
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.viktorsimko.wtime")
 public class WTimeConfiguration {
 
+  /**
+   * This method sets up and returns a pooled data source for hibernate.
+   *
+   * @return the configured data source
+   * @throws Exception if the connection properties are not correct
+   */
   @Bean(destroyMethod = "close")
   public ComboPooledDataSource dataSource() throws Exception {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -36,6 +42,12 @@ public class WTimeConfiguration {
     return dataSource;
   }
 
+  /**
+   * This method sets up and returns a configured session factory for hibernate.
+   *
+   * @return the configured session factory
+   * @throws Exception if the creation of the data source {@code Bean} throws
+   */
   @Bean
   public LocalSessionFactoryBean sessionFactory() throws Exception {
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -45,6 +57,12 @@ public class WTimeConfiguration {
     return sessionFactory;
   }
 
+  /**
+   * This method sets up and returns a configured {@code HibernateTransactionManager} for hibernate.
+   *
+   * @param sessionFactory the session factory to be used by the transaction manager
+   * @return the configured {@code HibernateTransactionManager}
+   */
   @Bean
   @Autowired
   public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
@@ -53,6 +71,11 @@ public class WTimeConfiguration {
     return transactionManager;
   }
 
+  /**
+   * Returns a properties object which contains the necessary settings for hibernate.
+   *
+   * @return the properties object
+   */
   Properties hibernateProperties() {
     return new Properties() {
       {

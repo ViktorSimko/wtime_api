@@ -17,26 +17,20 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Created by simkoviktor on 2017. 03. 18..
- *
  * The rest controller for handling projects.
- *
  */
 @RestController
 @RequestMapping("/projects")
 public class ProjectController {
 
-  /**
-   * The project service, by which we interact with the model
-   */
   @Autowired
   private ProjectService projectService;
 
   /**
-   * Get all the projects for the authenticated user
+   * Get all the projects for the authenticated user.
    *
-   * @param authentication The authentication object passed in by Spring Security
-   * @return All the projects for the authenticated user
+   * @param authentication the authentication object passed in by Spring Security
+   * @return all the projects for the authenticated user
    */
   @GetMapping
   public Collection<Project> getProjects(Authentication authentication) {
@@ -45,10 +39,10 @@ public class ProjectController {
   }
 
   /**
-   * Adds the project for the authenticated user
+   * Adds the project for the authenticated user.
    *
-   * @param authentication The authentication object passed in by Spring Security
-   * @param project The project from the request body
+   * @param authentication the authentication object passed in by Spring Security
+   * @param project the project from the request body
    */
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
@@ -56,15 +50,14 @@ public class ProjectController {
     String userName = authentication.getName();
     project.setUser(userName);
 
-    System.out.println(project.getTasks());
     projectService.addProject(project);
   }
 
   /**
-   * Returns a project for the given projectId
+   * Returns a project for the given projectId.
    *
-   * @param projectId The id of the project we want get
-   * @return The project for the given projectId
+   * @param projectId the id of the project we want get
+   * @return the project for the given projectId
    */
   @Transactional
   @GetMapping("/{projectId}")
@@ -75,7 +68,7 @@ public class ProjectController {
     return checkResource(project);
   }
 
-  @GetMapping(value = "/{projectId}/tasklist", produces = "application/json")
+  /*@GetMapping(value = "/{projectId}/tasklist", produces = "application/json")
   public String getTaskListForProject(Authentication authentication,
                                       @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
@@ -105,5 +98,5 @@ public class ProjectController {
     responseBuilder.append("}");
 
     return responseBuilder.toString();
-  }
+  }*/
 }

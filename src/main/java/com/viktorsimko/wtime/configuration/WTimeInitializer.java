@@ -5,7 +5,8 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 /**
- * Created by simkoviktor on 2017. 03. 15..
+ * The initializer class for the application.
+ * It sets the configuration class and the servlet mappings.
  */
 public class WTimeInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

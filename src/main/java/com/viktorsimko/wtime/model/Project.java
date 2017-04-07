@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * The project object, it represents a work project which a user works on.
+ * The project class, it represents a project which a user works on.
  */
 @Entity
 @Table(name = "project")
@@ -20,10 +20,6 @@ public class Project {
 
   @Column(name = "title")
   private String title;
-
-  @JsonIgnore
-  @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
-  private Collection<Task> tasks = new ArrayList<>();
 
   @JsonIgnore
   @Column(name = "user")
@@ -66,21 +62,5 @@ public class Project {
    */
   public void setUser(String user) {
     this.user = user;
-  }
-
-  /**
-   * The tasks related to this project
-   */
-  public Collection<Task> getTasks() {
-    return tasks;
-  }
-
-  /**
-   * Adds a task to the project.
-   *
-   * @param task the task to be added
-   */
-  public void addTask(Task task) {
-    tasks.add(task);
   }
 }

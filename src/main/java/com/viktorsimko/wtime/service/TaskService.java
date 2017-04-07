@@ -6,12 +6,35 @@ import org.springframework.security.core.Authentication;
 import java.util.Collection;
 
 /**
- * Created by simkoviktor on 2017. 03. 21..
+ * A service for managing and getting information about {@code Task} objects.
  */
 public interface TaskService {
 
-  Collection<Task> getTasks(String userName);
+  /**
+   * Returns the {@code Task}'s associated with the given {@code Project}.
+   *
+   * @param userName the {@code name} of the current user
+   * @param projectId the {@code id} of the {@code Project} to get the tasks for
+   * @return the {@code Task}'s associated with the given {@code Project}
+   *         or null if the given {@code id} is not associated with the {@code userName} or it is not exists
+   */
+  Collection<Task> getTasks(String userName, int projectId);
 
-  void addTask(Task task);
+  /**
+   * Returns the {@code Task}'s associated with the given {@code id}.
+   *
+   * @param userName the {@code name} of the current user
+   * @param taskId the {@code id} of the task to get
+   * @return the {@code Task} associated with the given {@code id},
+   *         or null if the given {@code id} is not associated with the {@code userName} or it is not exists
+   */
+  Task getTask(String userName, int taskId);
 
+  /**
+   * Adds the given {@code Task} object for the given {@code Project} to the database.
+   *
+   * @param projectId the {@code Project} to add the {@code Task} for
+   * @param task the {@code Task} to save
+   */
+  void addTask(int projectId, Task task);
 }

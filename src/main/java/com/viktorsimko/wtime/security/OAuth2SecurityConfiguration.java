@@ -2,7 +2,6 @@ package com.viktorsimko.wtime.security;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,15 +17,10 @@ import org.springframework.security.oauth2.provider.approval.TokenStoreUserAppro
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
-import javax.activation.DataSource;
-import java.util.Properties;
-
 /**
- * Created by simkoviktor on 2017. 03. 16..
+ * The configuration class for OAuth2.
  */
 @Configuration
 @EnableWebSecurity
@@ -38,8 +32,8 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private ClientDetailsService clientDetailsService;
 
   @Autowired
-  public void globalUserDetails(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-    authenticationManagerBuilder.userDetailsService(userDetailsService());
+  private void globalUserDetails(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    authenticationManagerBuilder.userDetailsService(jdbcUserDetailsManager());
   }
 
   @Override
@@ -56,11 +50,22 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return super.authenticationManagerBean();
   }
 
+  /**
+   * Returns a {@code TokenStore} for storing authorization tokens.
+   *
+   * @return a {@code TokenStore}
+   */
   @Bean
   public TokenStore tokenStore() {
     return new InMemoryTokenStore();
   }
 
+  /**
+   * Returns a configured {@code TokenStoreUserApprovalHandler} using the given {@code TokenStore}.
+   *
+   * @param tokenStore the {@code TokenStore} for the {@code TokenStoreUserApprovalHandler}
+   * @return the configured {@code TokenStoreUserApprovalHandler}
+   */
   @Bean
   @Autowired
   public TokenStoreUserApprovalHandler userApprovalHandler(TokenStore tokenStore) {
@@ -71,27 +76,27 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return handler;
   }
 
+  /**
+   * Configures and returns an {@code ApprovalStore}.
+   *
+   * @param tokenStore the {@code TokenStore} for the {@code ApprovalStore} to use
+   * @return the configured {@code ApprovalStore}
+   */
   @Bean
   @Autowired
-  public ApprovalStore approvalStore(TokenStore tokenStore) throws Exception {
+  public ApprovalStore approvalStore(TokenStore tokenStore) {
     TokenApprovalStore store = new TokenApprovalStore();
     store.setTokenStore(tokenStore);
     return store;
   }
 
-  @Override
-  protected UserDetailsService userDetailsService() {
-    return inMemoryUserDetailsManager();
-  }
-
-  @Bean
-  @Override
-  public UserDetailsService userDetailsServiceBean() throws Exception {
-    return super.userDetailsServiceBean();
-  }
-
-  @Bean
-  JdbcUserDetailsManager inMemoryUserDetailsManager() {
+  /**
+   * Configures and returns a {@code JdbcUserDetailsManager}.
+   *
+   * @return the configured {@code JdbcUserDetailsManager}
+   */
+  @Bean("userDetailsServiceBean")
+  JdbcUserDetailsManager jdbcUserDetailsManager() {
 
     JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
     userDetailsManager.setDataSource(dataSource);

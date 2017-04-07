@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
- * Created by simkoviktor on 2017. 03. 19..
+ *
  */
 @RestController
 @RequestMapping("/projects/{projectId}/tasks")
@@ -25,16 +25,14 @@ public class TaskController {
                       @RequestBody Task task) {
     String userName = authentication.getName();
 
-    Project project = projectService.getProject(userName, projectId);
-    project.getTasks().add(task);
   }
 
   @GetMapping
   public Collection<Task> getTasks(Authentication authentication,
                                    @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
-    Project project = projectService.getProject(userName, projectId);
-    return project.getTasks();
+
+    return null;
   }
 
 }

@@ -12,7 +12,8 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Created by simkoviktor on 2017. 03. 15..
+ *
+ *
  */
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {
@@ -37,12 +38,6 @@ public class ProjectDAOImpl implements ProjectDAO {
     Session session = sessionFactory.getCurrentSession();
 
     session.save(project);
-
-    for (Task task: project.getTasks()) {
-      task.setProject(project);
-      session.save(task);
-    }
-
   }
 
   @Override

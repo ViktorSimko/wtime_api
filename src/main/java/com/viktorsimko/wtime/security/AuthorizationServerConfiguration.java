@@ -14,9 +14,8 @@ import org.springframework.security.oauth2.provider.approval.UserApprovalHandler
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
- * Created by simkoviktor on 2017. 03. 16..
+ * The authorization server configuration class for the application.
  */
-
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
