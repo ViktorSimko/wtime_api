@@ -17,9 +17,13 @@ public class TaskServiceImpl implements TaskService {
   @Autowired
   private TaskDAO taskDAO;
 
-
   @Override
   public Collection<Task> getTasks(String userName, int projectId) {
+    return null;
+  }
+
+  @Override
+  public Collection<Task> getTasks(String userName) {
     return null;
   }
 
@@ -29,7 +33,8 @@ public class TaskServiceImpl implements TaskService {
   }
 
   @Override
-  public void addTask(int projectId, Task task) {
+  public void addTask(Task task) {
 
   }
+
 }

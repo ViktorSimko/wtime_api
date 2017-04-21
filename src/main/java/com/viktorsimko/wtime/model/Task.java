@@ -23,6 +23,9 @@ public class Task {
   @Column(name = "title")
   private String title;
 
+  @JsonIgnore
+  @Column(name = "user")
+  private String user;
   /**
    * The id of the task.
    *
@@ -66,5 +69,22 @@ public class Task {
    */
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  /**
+   * Returns the user, who this project belongs to.
+   *
+   * @return the user who owns this project
+   */
+  public String getUser() {
+    return user;
+  }
+
+  /**
+   * Sets the owner for the {@code Task}.
+   * @param user the user to set
+   */
+  public void setUser(String user) {
+    this.user = user;
   }
 }

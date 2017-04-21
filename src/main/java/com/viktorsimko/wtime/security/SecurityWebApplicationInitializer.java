@@ -3,7 +3,7 @@ package com.viktorsimko.wtime.security;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 /**
- * Created by simkoviktor on 2017. 03. 16..
+ * This class is for the initialization of the Spring Security filter chain.
  */
 public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
 }

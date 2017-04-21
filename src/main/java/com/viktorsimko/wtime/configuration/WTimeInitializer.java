@@ -1,5 +1,10 @@
 package com.viktorsimko.wtime.configuration;
 
+import com.viktorsimko.wtime.filter.WTimeCORSFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
@@ -27,6 +32,6 @@ public class WTimeInitializer extends AbstractAnnotationConfigDispatcherServletI
 
   @Override
   protected Filter[] getServletFilters() {
-    return new Filter[] { };
+    return new Filter[] { new WTimeCORSFilter() };
   }
 }

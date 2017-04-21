@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  * The authorization server configuration class for the application.
  */
 @Configuration
-@EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
   private static final String REALM = "WTIME_OAUTH_REALM";
@@ -46,9 +45,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
     clients.inMemory()
            .withClient("wtime-client")
-           .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-           .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-           .scopes("read", "write", "trust")
+           .authorizedGrantTypes("password", "refresh_token")
+           .authorities("ROLE_CLIENT")
+           .scopes("read", "write")
            .secret("secret")
            .accessTokenValiditySeconds(12000000)
            .refreshTokenValiditySeconds(600);

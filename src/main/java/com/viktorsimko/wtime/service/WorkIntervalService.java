@@ -37,10 +37,9 @@ public interface WorkIntervalService {
   WorkInterval getWorkInterval(String userName, int workIntervalId);
 
   /**
-   * Adds
+   * Adds the given {@code WorkInterval} to the database.
    *
-   * @param taskId
-   * @param workInterval
+   * @param workInterval the {@code WorkInterval} to save
    */
-  void addWorkInterval(int taskId, WorkInterval workInterval);
+  void addWorkInterval(WorkInterval workInterval);
 }

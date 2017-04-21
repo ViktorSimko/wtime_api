@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Properties;
 
@@ -21,7 +23,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.viktorsimko.wtime")
-public class WTimeConfiguration {
+public class WTimeConfiguration extends WebMvcConfigurerAdapter {
 
   /**
    * This method sets up and returns a pooled data source for hibernate.
@@ -76,7 +78,7 @@ public class WTimeConfiguration {
    *
    * @return the properties object
    */
-  Properties hibernateProperties() {
+  private Properties hibernateProperties() {
     return new Properties() {
       {
        setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");

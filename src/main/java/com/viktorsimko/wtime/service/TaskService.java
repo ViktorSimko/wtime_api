@@ -21,6 +21,14 @@ public interface TaskService {
   Collection<Task> getTasks(String userName, int projectId);
 
   /**
+   * Returns the {@code Task}'s associated with the given user.
+   *
+   * @param userName the user to get the {@code Task}'s for
+   * @return the {@code Task}'s associated with the given user
+   */
+  Collection<Task> getTasks(String userName);
+
+  /**
    * Returns the {@code Task}'s associated with the given {@code id}.
    *
    * @param userName the {@code name} of the current user
@@ -33,8 +41,7 @@ public interface TaskService {
   /**
    * Adds the given {@code Task} object for the given {@code Project} to the database.
    *
-   * @param projectId the {@code Project} to add the {@code Task} for
    * @param task the {@code Task} to save
    */
-  void addTask(int projectId, Task task);
+  void addTask(Task task);
 }
