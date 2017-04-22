@@ -37,4 +37,10 @@ public class ProjectServiceImpl implements ProjectService {
   public Project updateProject(String userName, int projectId, Project updatedProjectInfo) {
     return projectDAO.updateProject(userName, projectId, updatedProjectInfo);
   }
+
+  @Override
+  @Transactional
+  public Project deleteProject(String userName, int projectId) {
+    return projectDAO.deleteProject(userName, projectId);
+  }
 }

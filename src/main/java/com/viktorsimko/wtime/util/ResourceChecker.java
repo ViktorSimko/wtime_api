@@ -3,6 +3,7 @@ package com.viktorsimko.wtime.util;
 import com.viktorsimko.wtime.model.Resource;
 import org.springframework.http.ResponseEntity;
 
+import javax.persistence.Table;
 import java.net.URI;
 
 /**
@@ -18,10 +19,10 @@ public class ResourceChecker {
    * @param <ResourceType> The type of the resource
    * @return The resource, if its valid
    */
-  public static <ResourceType extends Resource> ResponseEntity<ResourceType> checkResource(ResourceType resource) {
+  public static <ResourceType> ResponseEntity<ResourceType> checkResource(ResourceType resource) {
 
     if (resource == null) {
-      ResponseEntity.notFound().build();
+      return ResponseEntity.notFound().build();
     }
 
     return ResponseEntity.ok(resource);
@@ -38,9 +39,11 @@ public class ResourceChecker {
   public static <ResourceType extends Resource> ResponseEntity<ResourceType> checkResourceCreated(ResourceType resource) {
 
     if (resource == null) {
-      ResponseEntity.badRequest().build();
+      return ResponseEntity.badRequest().build();
     }
 
-    return ResponseEntity.created(URI.create("/projects/" + resource.getId())).body(resource);
+    String pathClassName = resource.getClass().getAnnotation(Table.class).name();
+
+    return ResponseEntity.created(URI.create("/" + pathClassName + "s/" + resource.getId())).body(resource);
   }
 }

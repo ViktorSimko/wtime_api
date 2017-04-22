@@ -16,4 +16,6 @@ public interface ProjectDAO {
   Project getProject(String userName, int projectId);
 
   Project updateProject(String userName, int projectId, Project updatedProjectInfo);
+
+  Project deleteProject(String userName, int projectId);
 }

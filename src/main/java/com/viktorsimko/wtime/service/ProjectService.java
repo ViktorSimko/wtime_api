@@ -43,4 +43,13 @@ public interface ProjectService {
    * @return the updated project
    */
   Project updateProject(String userName, int projectId, Project updatedProjectInfo);
+
+  /**
+   * Deletes the given project.
+   *
+   * @param userName the {@code name} of the current user
+   * @param projectId the id of the project to delete
+   * @return the deleted project
+   */
+  Project deleteProject(String userName, int projectId);
 }

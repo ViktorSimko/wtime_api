@@ -73,4 +73,13 @@ public class ProjectDAOImpl implements ProjectDAO {
 
     return projectToUpdate;
   }
+
+  @Override
+  public Project deleteProject(String userName, int projectId) {
+    Project projectToDelete = getProject(userName, projectId);
+
+    sessionFactory.getCurrentSession().delete(projectToDelete);
+
+    return projectToDelete;
+  }
 }
