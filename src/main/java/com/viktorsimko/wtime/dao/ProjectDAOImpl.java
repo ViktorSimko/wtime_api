@@ -12,8 +12,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- *
- *
+ * Class for accessing and manipulating the projects in the database.
  */
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 /**
- * Created by simkoviktor on 2017. 03. 21..
+ * A service for managing and getting information about {@code Task} objects.
  */
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -19,22 +19,31 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public Collection<Task> getTasks(String userName, int projectId) {
-    return null;
+    return taskDAO.getTasks(userName, projectId);
   }
 
   @Override
   public Collection<Task> getTasks(String userName) {
-    return null;
+    return taskDAO.getTasks(userName);
   }
 
   @Override
   public Task getTask(String userName, int taskId) {
-    return null;
+    return taskDAO.getTask(userName, taskId);
   }
 
   @Override
-  public void addTask(Task task) {
-
+  public Task addTask(Task task) {
+    return taskDAO.addTask(task);
   }
 
+  @Override
+  public Task updateTask(String userName, int taskId, Task updateInfo) {
+    return taskDAO.updateTask(userName, taskId, updateInfo);
+  }
+
+  @Override
+  public Task deleteTask(String userName, int taskId) {
+    return taskDAO.deleteTask(userName, taskId);
+  }
 }

@@ -23,6 +23,12 @@ public class SecurityController {
   @Autowired
   private JdbcUserDetailsManager userDetailsManager;
 
+  /**
+   * Checks if a user with the given {@code userName}.
+   *
+   * @param userName the username to check
+   * @return true, if the user exists, false else
+   */
   @RequestMapping("/exists/{userName}")
   public boolean userExists(@PathVariable("userName") String userName) {
     UserDetails userDetails = userDetailsManager.loadUserByUsername(userName);
@@ -30,6 +36,13 @@ public class SecurityController {
     return userDetailsManager.userExists(userName);
   }
 
+  /**
+   * Registers a new user.
+   *
+   * @param userName the name of the user
+   * @param password the password of the user
+   * @return information about the registration
+   */
   @RequestMapping("/register/{userName}/{password}")
   public String register(@PathVariable("userName") String userName,
                          @PathVariable("password") String password) {
