@@ -90,6 +90,7 @@ public class TaskDAOImpl implements TaskDAO {
   }
 
   @Override
+  @Transactional
   public Task deleteTask(String userName, int taskId) {
 
     Task task = getTask(userName, taskId);
