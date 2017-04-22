@@ -11,7 +11,9 @@ public interface ProjectDAO {
 
   List<Project> getProjects(String userName);
 
-  void addProject(Project project);
+  Project addProject(Project project);
 
   Project getProject(String userName, int projectId);
+
+  Project updateProject(String userName, int projectId, Project updatedProjectInfo);
 }

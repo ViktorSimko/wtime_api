@@ -34,10 +34,12 @@ public class ProjectDAOImpl implements ProjectDAO {
   }
 
   @Override
-  public void addProject(Project project) {
+  public Project addProject(Project project) {
     Session session = sessionFactory.getCurrentSession();
 
     session.save(project);
+
+    return project;
   }
 
   @Override
@@ -55,5 +57,20 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     return projects.get(0);
+  }
+
+  @Override
+  public Project updateProject(String userName, int projectId, Project updatedProjectInfo) {
+    Project projectToUpdate = getProject(userName, projectId);
+
+    if (projectToUpdate == null) {
+      return null;
+    }
+
+    projectToUpdate.setTitle(updatedProjectInfo.getTitle());
+
+    sessionFactory.getCurrentSession().save(projectToUpdate);
+
+    return projectToUpdate;
   }
 }

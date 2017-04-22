@@ -11,26 +11,10 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "project")
-public class Project {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "project_id", unique = true, nullable = false)
-  private int id;
+public class Project extends Resource {
 
   @Column(name = "title")
   private String title;
-
-  @JsonIgnore
-  @Column(name = "user")
-  private String user;
-
-  /**
-   * The id of the project.
-   */
-  public int getId() {
-    return id;
-  }
 
   /**
    * The title of the project.
@@ -46,21 +30,5 @@ public class Project {
    */
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  /**
-   * The owner of the project.
-   */
-  public String getUser() {
-    return user;
-  }
-
-  /**
-   * Sets the user for the project.
-   *
-   * @param user The name of the user to set for this project.
-   */
-  public void setUser(String user) {
-    this.user = user;
   }
 }

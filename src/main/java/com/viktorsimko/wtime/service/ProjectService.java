@@ -32,5 +32,15 @@ public interface ProjectService {
    *
    * @param project the {@code Project} to save
    */
-  void addProject(Project project);
+  Project addProject(Project project);
+
+  /**
+   * Updates the project.
+   *
+   * @param userName the {@code name} of the current user
+   * @param projectId the id of the project to update
+   * @param updatedProjectInfo the information to update the project with
+   * @return the updated project
+   */
+  Project updateProject(String userName, int projectId, Project updatedProjectInfo);
 }

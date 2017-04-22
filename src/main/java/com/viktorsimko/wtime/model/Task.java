@@ -10,30 +10,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "task")
-public class Task {
-
-  @Id
-  @Column(name = "task_id", unique = true, nullable = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+public class Task extends Resource {
 
   @Column(name = "project_id", unique = true, nullable = false)
   private int projectId;
 
   @Column(name = "title")
   private String title;
-
-  @JsonIgnore
-  @Column(name = "user")
-  private String user;
-  /**
-   * The id of the task.
-   *
-   * @return the id of the task
-   */
-  public int getId() {
-    return id;
-  }
 
   /**
    * The id of the project which this task belongs to.
@@ -69,22 +52,5 @@ public class Task {
    */
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  /**
-   * Returns the user, who this project belongs to.
-   *
-   * @return the user who owns this project
-   */
-  public String getUser() {
-    return user;
-  }
-
-  /**
-   * Sets the owner for the {@code Task}.
-   * @param user the user to set
-   */
-  public void setUser(String user) {
-    this.user = user;
   }
 }

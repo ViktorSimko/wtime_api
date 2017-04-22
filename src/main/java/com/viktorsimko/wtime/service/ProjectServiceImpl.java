@@ -22,13 +22,19 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   @Transactional
-  public void addProject(Project project) {
-    projectDAO.addProject(project);
+  public Project addProject(Project project) {
+    return projectDAO.addProject(project);
   }
 
   @Override
   @Transactional
   public Project getProject(String userName, int projectId) {
     return projectDAO.getProject(userName, projectId);
+  }
+
+  @Override
+  @Transactional
+  public Project updateProject(String userName, int projectId, Project updatedProjectInfo) {
+    return projectDAO.updateProject(userName, projectId, updatedProjectInfo);
   }
 }
