@@ -18,6 +18,8 @@ public class Project extends Resource {
 
   /**
    * The title of the project.
+   *
+   * @return the title of the project
    */
   public String getTitle() {
     return title;

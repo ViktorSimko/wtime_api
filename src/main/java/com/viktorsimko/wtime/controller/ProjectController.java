@@ -27,7 +27,7 @@ public class ProjectController {
    * Get all the projects for the authenticated user.
    *
    * @param authentication the authentication object passed in by Spring Security
-   * @return all the projects for the authenticated user
+   * @return all the projects for the authenticated user with a response
    */
   @GetMapping
   public ResponseEntity<Collection<Project>> getProjects(Authentication authentication) {
@@ -43,6 +43,8 @@ public class ProjectController {
    *
    * @param authentication the authentication object passed in by Spring Security
    * @param project the project from the request body
+   * @return a status 201 response containing the uploaded project if the upload was successful,
+   *         else a status 400 response
    */
   @PostMapping
   public ResponseEntity<Project> postProject(Authentication authentication, @RequestBody Project project) {
@@ -59,7 +61,8 @@ public class ProjectController {
    *
    * @param authentication the authentication object passed in by Spring Security
    * @param projectId the id of the project we want get
-   * @return the project for the given projectId
+   * @return a response containing the project with a status code of 200 if it exists,
+   *         a response with a status of 404 else
    */
   @GetMapping("/{projectId}")
   public ResponseEntity<Project> getProject(Authentication authentication, @PathVariable("projectId") int projectId) {
@@ -74,7 +77,9 @@ public class ProjectController {
    *
    * @param authentication the authentication object passed in by Spring Security
    * @param projectId the id of the project to update
-   * @return the updated project
+   * @param updatedProjectInfo the information to update the project with
+   * @return a response containing the updated project with a status code of 200 if the update was successful,
+   *         a response with a status of 404 else
    */
   @PatchMapping("/{projectId}")
   public ResponseEntity<Project> patchProject(Authentication authentication, @PathVariable("projectId") int projectId, @RequestBody Project updatedProjectInfo) {
@@ -90,7 +95,8 @@ public class ProjectController {
    *
    * @param authentication the authentication object passed in by Spring Security
    * @param projectId the id of the project to delete
-   * @return the deleted project
+   * @return a response containing the deleted project with a status code of 200 if the delete was successful,
+   *         a response with a status of 404 else
    */
   @DeleteMapping("/{projectId}")
   public ResponseEntity<Project> deleteProject(Authentication authentication, @PathVariable("projectId") int projectId) {

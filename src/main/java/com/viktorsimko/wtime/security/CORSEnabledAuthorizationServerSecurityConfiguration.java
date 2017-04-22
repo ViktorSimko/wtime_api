@@ -9,6 +9,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * An authorization server configuration class for providing CORS support on the authorization endpoints.
+ */
 @Configuration
 public class CORSEnabledAuthorizationServerSecurityConfiguration extends AuthorizationServerSecurityConfiguration {
   @Override

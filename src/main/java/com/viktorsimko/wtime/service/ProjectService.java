@@ -31,6 +31,7 @@ public interface ProjectService {
    * Saves the given {@code Project} to the database.
    *
    * @param project the {@code Project} to save
+   * @return the project that has been added to the database, or null if there were errors
    */
   Project addProject(Project project);
 
@@ -40,7 +41,7 @@ public interface ProjectService {
    * @param userName the {@code name} of the current user
    * @param projectId the id of the project to update
    * @param updatedProjectInfo the information to update the project with
-   * @return the updated project
+   * @return the updated project, or null if the save was not successful
    */
   Project updateProject(String userName, int projectId, Project updatedProjectInfo);
 
@@ -49,7 +50,7 @@ public interface ProjectService {
    *
    * @param userName the {@code name} of the current user
    * @param projectId the id of the project to delete
-   * @return the deleted project
+   * @return the deleted project, or null if the deletion was not successful
    */
   Project deleteProject(String userName, int projectId);
 }

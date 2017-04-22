@@ -22,6 +22,8 @@ public class Resource {
 
   /**
    * The id of the resource.
+   *
+   * @return the id of the resource
    */
   public int getId() {
     return id;
@@ -29,6 +31,8 @@ public class Resource {
 
   /**
    * The owner of the resource.
+   *
+   * @return the owner of the resource
    */
   public String getUser() {
     return user;
