@@ -1,6 +1,7 @@
 package com.viktorsimko.wtime.service;
 
 import com.viktorsimko.wtime.dao.ProjectDAO;
+import com.viktorsimko.wtime.dao.ResourceDAO;
 import com.viktorsimko.wtime.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,35 +16,35 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
   @Autowired
-  private ProjectDAO projectDAO;
+  private ResourceDAO<Project> projectDAO;
 
   @Override
   @Transactional
   public List<Project> getProjects(String userName) {
-    return projectDAO.getProjects(userName);
+    return projectDAO.getResources(userName);
   }
 
   @Override
   @Transactional
   public Project addProject(Project project) {
-    return projectDAO.addProject(project);
+    return projectDAO.addResource(project);
   }
 
   @Override
   @Transactional
   public Project getProject(String userName, int projectId) {
-    return projectDAO.getProject(userName, projectId);
+    return projectDAO.getResource(userName, projectId);
   }
 
   @Override
   @Transactional
   public Project updateProject(String userName, int projectId, Project updatedProjectInfo) {
-    return projectDAO.updateProject(userName, projectId, updatedProjectInfo);
+    return projectDAO.updateResource(userName, projectId, updatedProjectInfo);
   }
 
   @Override
   @Transactional
   public Project deleteProject(String userName, int projectId) {
-    return projectDAO.deleteProject(userName, projectId);
+    return projectDAO.deleteResource(userName, projectId);
   }
 }

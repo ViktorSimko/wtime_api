@@ -24,26 +24,26 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public Collection<Task> getTasks(String userName) {
-    return taskDAO.getTasks(userName);
+    return taskDAO.getResources(userName);
   }
 
   @Override
   public Task getTask(String userName, int taskId) {
-    return taskDAO.getTask(userName, taskId);
+    return taskDAO.getResource(userName, taskId);
   }
 
   @Override
   public Task addTask(Task task) {
-    return taskDAO.addTask(task);
+    return taskDAO.addResource(task);
   }
 
   @Override
   public Task updateTask(String userName, int taskId, Task updateInfo) {
-    return taskDAO.updateTask(userName, taskId, updateInfo);
+    return taskDAO.updateResource(userName, taskId, updateInfo);
   }
 
   @Override
   public Task deleteTask(String userName, int taskId) {
-    return taskDAO.deleteTask(userName, taskId);
+    return taskDAO.deleteResource(userName, taskId);
   }
 }
