@@ -40,10 +40,10 @@ public interface ResourceDAO<R extends Resource> {
    *
    * @param userName the owner of the {@code Resource}
    * @param resourceId the {@code id} of the {@code Resource}
-   * @param updatedResourceInfo the information to update the {@code Resource} with
+   * @param updatedResource the information to update the {@code Resource} with
    * @return the updated {@code Resource}, if the update was successful, else null
    */
-  R updateResource(String userName, int resourceId, R updatedResourceInfo);
+  R updateResource(String userName, int resourceId, R updatedResource);
 
   /**
    * Deletes the given {@code Resource}.

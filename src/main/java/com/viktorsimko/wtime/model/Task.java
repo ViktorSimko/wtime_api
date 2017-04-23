@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Task extends Resource {
 
   @Column(name = "project_id", unique = true, nullable = false)
-  private int projectId;
+  private int projectId = -1;
 
   @Column(name = "title")
   private String title;

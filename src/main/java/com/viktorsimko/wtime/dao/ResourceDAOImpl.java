@@ -65,7 +65,7 @@ public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO
   }
 
   @Override
-  public R updateResource(String userName, int resourceId, R updatedResourceInfo) {
+  public R updateResource(String userName, int resourceId, R updatedResource) {
     R resource = getResource(userName, resourceId);
 
     Method[] methods = resource.getClass().getMethods();
@@ -76,7 +76,7 @@ public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO
       String getterName = setter.getName().replace("set", "get");
       try {
         Method getter = resource.getClass().getMethod(getterName);
-        Object propertyValue = getter.invoke(updatedResourceInfo);
+        Object propertyValue = getter.invoke(updatedResource);
 
         if (propertyValue != null) {
           setter.invoke(resource, propertyValue);

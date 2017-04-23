@@ -18,14 +18,14 @@ import java.util.List;
 public class ProjectDAOImpl extends ResourceDAOImpl<Project> implements ProjectDAO {
 
   @Override
-  public Project updateResource(String userName, int projectId, Project updatedProjectInfo) {
+  public Project updateResource(String userName, int projectId, Project updatedProject) {
     Project projectToUpdate = getResource(userName, projectId);
 
     if (projectToUpdate == null) {
       return null;
     }
 
-    projectToUpdate.setTitle(updatedProjectInfo.getTitle());
+    projectToUpdate.setTitle(updatedProject.getTitle());
 
     sessionFactory.getCurrentSession().save(projectToUpdate);
 

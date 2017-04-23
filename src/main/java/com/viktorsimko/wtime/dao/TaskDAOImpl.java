@@ -28,16 +28,27 @@ public class TaskDAOImpl extends ResourceDAOImpl<Task> implements TaskDAO {
   }
 
   @Override
-  public Task updateResource(String userName, int taskId, Task updateInfo) {
+  public Task updateResource(String userName, int taskId, Task updatedTask) {
 
-    Task task = getResource(userName, taskId);
+    Task taskToUpdate = getResource(userName, taskId);
 
-    task.setTitle(updateInfo.getTitle());
+    if (taskToUpdate == null) {
+      return null;
+    }
 
-    task.setProjectId(updateInfo.getProjectId());
+    int newProjectId = updatedTask.getProjectId();
+    String newTitle = updatedTask.getTitle();
 
-    sessionFactory.getCurrentSession().save(task);
+    if (newProjectId != -1) {
+      taskToUpdate.setProjectId(newProjectId);
+    }
 
-    return task;
+    if (newTitle != null) {
+      taskToUpdate.setTitle(newTitle);
+    }
+
+    sessionFactory.getCurrentSession().save(taskToUpdate);
+
+    return taskToUpdate;
   }
 }
