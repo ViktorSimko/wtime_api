@@ -40,10 +40,10 @@ public interface ResourceService<R extends Resource> {
    *
    * @param userName the {@code name} of the current user
    * @param resourceId the id of the {@code Resource} to update
-   * @param updatedResourceInfo the information to update the {@code Resource} with
+   * @param updatedResource the information to update the {@code Resource} with
    * @return the updated {@code Resource}, or null if the save was not successful
    */
-  R updateResource(String userName, int resourceId, R updatedResourceInfo);
+  R updateResource(String userName, int resourceId, R updatedResource);
 
   /**
    * Deletes the given {@code Resource}.

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "work_interval")
 public class WorkInterval extends Resource {
 
-  @Column(name = "task_id")
+  @Column(name = "task_id", nullable = false)
   private int taskId = -1;
 
   @Column(name = "begin")

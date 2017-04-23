@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "task")
 public class Task extends Resource {
 
-  @Column(name = "project_id", unique = true, nullable = false)
+  @Column(name = "project_id", nullable = false)
   private int projectId = -1;
 
   @Column(name = "title")

@@ -17,8 +17,8 @@ public class ResourceServiceImpl<R extends Resource> implements ResourceService<
   }
 
   @Override
-  public R addResource(R project) {
-    return resourceDAO.addResource(project);
+  public R addResource(R resource) {
+    return resourceDAO.addResource(resource);
   }
 
   @Override
@@ -27,8 +27,8 @@ public class ResourceServiceImpl<R extends Resource> implements ResourceService<
   }
 
   @Override
-  public R updateResource(String userName, int projectId, R updatedProjectInfo) {
-    return resourceDAO.updateResource(userName, projectId, updatedProjectInfo);
+  public R updateResource(String userName, int resourceId, R updatedResource) {
+    return resourceDAO.updateResource(userName, resourceId, updatedResource);
   }
 
   @Override
