@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO<R> {
@@ -59,6 +62,33 @@ public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO
     }
 
     return resourceList.get(0);
+  }
+
+  @Override
+  public R updateResource(String userName, int resourceId, R updatedResourceInfo) {
+    R resource = getResource(userName, resourceId);
+
+    Method[] methods = resource.getClass().getMethods();
+
+    List<Method> setters = Arrays.stream(methods).filter(method -> method.getName().matches("^set")).collect(Collectors.toList());
+
+    for (Method setter: setters) {
+      String getterName = setter.getName().replace("set", "get");
+      try {
+        Method getter = resource.getClass().getMethod(getterName);
+        Object propertyValue = getter.invoke(updatedResourceInfo);
+
+        if (propertyValue != null) {
+          setter.invoke(resource, propertyValue);
+        }
+      } catch (Exception exc) {
+       // log out the exception
+      }
+    }
+
+    sessionFactory.getCurrentSession().save(resource);
+
+    return resource;
   }
 
   @Override

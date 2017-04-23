@@ -33,7 +33,7 @@ public class ProjectController {
   public ResponseEntity<Collection<Project>> getProjects(Authentication authentication) {
     String userName = authentication.getName();
 
-    Collection<Project> projects = projectService.getProjects(userName);
+    Collection<Project> projects = projectService.getResources(userName);
 
     return checkResource(projects);
   }
@@ -51,7 +51,7 @@ public class ProjectController {
     String userName = authentication.getName();
     project.setUser(userName);
 
-    Project addedProject = projectService.addProject(project);
+    Project addedProject = projectService.addResource(project);
 
     return checkResourceCreated(addedProject);
   }
@@ -67,7 +67,7 @@ public class ProjectController {
   @GetMapping("/{projectId}")
   public ResponseEntity<Project> getProject(Authentication authentication, @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
-    Project project = projectService.getProject(userName, projectId);
+    Project project = projectService.getResource(userName, projectId);
 
     return checkResource(project);
   }
@@ -85,7 +85,7 @@ public class ProjectController {
   public ResponseEntity<Project> patchProject(Authentication authentication, @PathVariable("projectId") int projectId, @RequestBody Project updatedProjectInfo) {
     String userName = authentication.getName();
 
-    Project updatedProject = projectService.updateProject(userName, projectId, updatedProjectInfo);
+    Project updatedProject = projectService.updateResource(userName, projectId, updatedProjectInfo);
 
     return checkResource(updatedProject);
   }
@@ -101,7 +101,7 @@ public class ProjectController {
   @DeleteMapping("/{projectId}")
   public ResponseEntity<Project> deleteProject(Authentication authentication, @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
-    Project deletedProject = projectService.deleteProject(userName, projectId);
+    Project deletedProject = projectService.deleteResource(userName, projectId);
 
     return checkResource(deletedProject);
   }

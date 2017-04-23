@@ -25,7 +25,7 @@ public class TaskController {
   public ResponseEntity<Task> addTask(Authentication authentication, @RequestBody Task task) {
     String userName = authentication.getName();
     task.setUser(userName);
-    Task savedTask = taskService.addTask(task);
+    Task savedTask = taskService.addResource(task);
 
     return checkResourceCreated(savedTask);
   }
@@ -43,7 +43,7 @@ public class TaskController {
   public ResponseEntity<Collection<Task>> getTasks(Authentication authentication) {
     String userName = authentication.getName();
 
-    Collection<Task> tasks = taskService.getTasks(userName);
+    Collection<Task> tasks = taskService.getResources(userName);
 
     return checkResource(tasks);
   }
@@ -52,7 +52,7 @@ public class TaskController {
   public ResponseEntity<Task> getTask(Authentication authentication, @PathVariable("taskId") int taskId) {
     String userName = authentication.getName();
 
-    Task task = taskService.getTask(userName, taskId);
+    Task task = taskService.getResource(userName, taskId);
 
     return checkResource(task);
   }
@@ -61,7 +61,7 @@ public class TaskController {
   public ResponseEntity<Task> patchTask(Authentication authentication, @PathVariable("taskId") int taskId, @RequestBody Task updateInfo) {
     String userName = authentication.getName();
 
-    Task task = taskService.updateTask(userName, taskId, updateInfo);
+    Task task = taskService.updateResource(userName, taskId, updateInfo);
 
     return checkResource(task);
   }
@@ -70,7 +70,7 @@ public class TaskController {
   public ResponseEntity<Task> deleteTask(Authentication authentication, @PathVariable("taskId") int taskId) {
     String userName = authentication.getName();
 
-    Task task = taskService.deleteTask(userName, taskId);
+    Task task = taskService.deleteResource(userName, taskId);
 
     return checkResource(task);
   }

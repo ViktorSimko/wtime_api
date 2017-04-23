@@ -29,7 +29,7 @@ public class ProjectServiceImplTest {
 
   @Test
   public void test__getProjects__calls_ProjectDAO_getProjects_with_the_same_username_as_argument() {
-    projectService.getProjects(userName);
+    projectService.getResources(userName);
 
     verify(projectDAO).getResources(userName);
   }
@@ -40,7 +40,7 @@ public class ProjectServiceImplTest {
 
     when(projectDAO.getResources(userName)).thenReturn(projects);
 
-    List<Project> returnedProjects = projectService.getProjects(userName);
+    List<Project> returnedProjects = projectService.getResources(userName);
 
     assertTrue(returnedProjects == projects);
   }
@@ -49,7 +49,7 @@ public class ProjectServiceImplTest {
   public void test__addProject__calls_ProjectDAO_addProject_with_the_same_project_as_argument() {
     Project project = new Project();
 
-    projectService.addProject(project);
+    projectService.addResource(project);
 
     verify(projectDAO).addResource(project);
   }
@@ -57,7 +57,7 @@ public class ProjectServiceImplTest {
   @Test
   public void test__getProject__calls_ProjectDAO_getProject_with_the_same_username_and_project_id() {
 
-    projectService.getProject(userName, projectId);
+    projectService.getResource(userName, projectId);
 
     verify(projectDAO).getResource(userName, projectId);
   }
@@ -68,7 +68,7 @@ public class ProjectServiceImplTest {
 
     when(projectDAO.getResource(userName, projectId)).thenReturn(project);
 
-    Project returnedProject = projectService.getProject(userName, projectId);
+    Project returnedProject = projectService.getResource(userName, projectId);
 
     assertTrue(project == returnedProject);
   }
