@@ -1,8 +1,10 @@
 package com.viktorsimko.wtime.service;
 
+import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 import com.viktorsimko.wtime.dao.ProjectDAO;
 import com.viktorsimko.wtime.dao.TaskDAO;
 import com.viktorsimko.wtime.model.Task;
+import com.viktorsimko.wtime.model.WorkInterval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,9 @@ import java.util.Collection;
 public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskService {
   @Autowired
   private ProjectDAO projectDAO;
+
+  @Autowired
+  private WorkIntervalService workIntervalService;
 
   @Override
   public Collection<Task> getTasks(String userName, int projectId) {
@@ -42,5 +47,14 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     }
 
     return super.updateResource(userName, resourceId, updatedResource);
+  }
+
+  @Override
+  public Task deleteResource(String userName, int projectId) {
+    Collection<WorkInterval> workIntervals = workIntervalService.getWorkIntervals(userName, projectId);
+
+    workIntervals.forEach(workInterval -> workIntervalService.deleteResource(userName, workInterval.getId()));
+
+    return super.deleteResource(userName, projectId);
   }
 }
