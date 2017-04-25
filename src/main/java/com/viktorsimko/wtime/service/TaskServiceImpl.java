@@ -1,13 +1,11 @@
 package com.viktorsimko.wtime.service;
 
-import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 import com.viktorsimko.wtime.dao.ProjectDAO;
 import com.viktorsimko.wtime.dao.TaskDAO;
 import com.viktorsimko.wtime.model.Task;
 import com.viktorsimko.wtime.model.WorkInterval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 

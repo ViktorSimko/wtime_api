@@ -19,8 +19,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @Configuration
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-  private static final String REALM = "WTIME_OAUTH_REALM";
-
   @Autowired
   @Qualifier("userDetailsServiceBean")
   private UserDetailsService userDetailsService;
@@ -48,13 +46,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
            .authorizedGrantTypes("password", "refresh_token")
            .authorities("ROLE_CLIENT")
            .scopes("read", "write")
-           .secret("secret")
-           .accessTokenValiditySeconds(12000000)
-           .refreshTokenValiditySeconds(600);
-  }
-
-  @Override
-  public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-    security.realm(REALM + "/client");
+           .resourceIds(ResourceServerConfiguration.RESOURCE_ID)
+           .secret("secret");
   }
 }

@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `wtime`;
+
 USE `wtime`;
 
 DROP TABLE IF EXISTS `users`;
@@ -19,7 +20,11 @@ CREATE TABLE `authorities`(
 
 DROP TABLE IF EXISTS `project`;
 DROP TABLE IF EXISTS `task`;
+DROP TABLE IF EXISTS `Resource`;
 DROP TABLE IF EXISTS `work_interval`;
+DROP TABLE IF EXISTS `hibernate_sequences`;
+
+select * from Resource;
 
 CREATE TABLE `project` (
 	`id` int(5) NOT NULL AUTO_INCREMENT,

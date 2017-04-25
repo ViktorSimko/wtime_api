@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -51,11 +50,12 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
    * @throws Exception if the creation of the data source {@code Bean} throws
    */
   @Bean
-  public LocalSessionFactoryBean sessionFactory() throws Exception {
+  @Autowired
+  public LocalSessionFactoryBean sessionFactory(Properties hibernateProperties) throws Exception {
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setDataSource(dataSource());
     sessionFactory.setPackagesToScan("com.viktorsimko.wtime.model");
-    sessionFactory.setHibernateProperties(hibernateProperties());
+    sessionFactory.setHibernateProperties(hibernateProperties);
     return sessionFactory;
   }
 
@@ -78,12 +78,13 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
    *
    * @return the properties object
    */
-  private Properties hibernateProperties() {
+  @Bean
+  public Properties hibernateProperties() {
     return new Properties() {
       {
-       setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-       setProperty("hibernate.show_sql", "true");
-       setProperty("hibernate.hbm2ddl.auto", "update");
+        setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        setProperty("hibernate.show_sql", "true");
+        setProperty("hibernate.hbm2ddl.auto", "update");
       }
     };
   }
