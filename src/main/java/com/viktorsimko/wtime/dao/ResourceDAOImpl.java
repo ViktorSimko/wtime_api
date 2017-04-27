@@ -95,6 +95,10 @@ public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO
   public R deleteResource(String userName, int resourceId) {
     R resource = getResource(userName, resourceId);
 
+    if (resource == null) {
+      return null;
+    }
+
     sessionFactory.getCurrentSession().delete(resource);
 
     return resource;

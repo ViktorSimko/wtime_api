@@ -129,5 +129,98 @@ public class ProjectControllerTest {
            .andExpect(jsonPath("$").isEmpty());
   }
 
+  @Test
+  public void test__GET_projects_id__returns_the_project_with_the_id__when_it_is_found() throws Exception {
+    RequestPostProcessor bearerToken = oauthHelper.bearerToken("wtime-client");
+
+    Project project1 = new Project();
+    project1.setTitle("Project one");
+    project1.setUser("test_user");
+    sessionFactory.getCurrentSession().save(project1);
+
+    mockMvc.perform(get("/projects/{projectId}", project1.getId()).with(bearerToken))
+           .andDo(print())
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$.title", is(project1.getTitle())));
+  }
+
+  @Test
+  public void test__GET_projects_id__returns_404__when_it_is_not_found() throws Exception {
+    RequestPostProcessor bearerToken = oauthHelper.bearerToken("wtime-client");
+
+    mockMvc.perform(get("/projects/{projectId}", "1").with(bearerToken))
+           .andDo(print())
+           .andExpect(status().isNotFound());
+  }
+
+  @Test
+  public void test__PATCH_projects_id__updates_the_project_with_the_correct_information__when_the_id_is_found() throws Exception {
+    RequestPostProcessor bearerToken = oauthHelper.bearerToken("wtime-client");
+
+    Project project1 = new Project();
+    project1.setTitle("Project one");
+    project1.setUser("test_user");
+    sessionFactory.getCurrentSession().save(project1);
+
+    Project patch = new Project();
+    patch.setTitle("Updated title");
+
+    String jsonPatch = new ObjectMapper().writeValueAsString(patch);
+
+    mockMvc.perform(patch("/projects/{projectId}", project1.getId()).with(bearerToken).contentType("application/json").content(jsonPatch))
+           .andDo(print())
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$.title", is(patch.getTitle())));
+
+    List<Project> projectList = sessionFactory.getCurrentSession().createQuery("from Project").getResultList();
+
+    assertEquals(1, projectList.size());
+
+    Project firstProject = projectList.get(0);
+
+    assertEquals(patch.getTitle(), firstProject.getTitle());
+  }
+
+  @Test
+  public void test__PATCH_projects_id__returns_404__when_the_id_is_not_found() throws Exception {
+    RequestPostProcessor bearerToken = oauthHelper.bearerToken("wtime-client");
+
+    Project patch = new Project();
+    patch.setTitle("Updated title");
+
+    String jsonPatch = new ObjectMapper().writeValueAsString(patch);
+
+    mockMvc.perform(patch("/projects/{projectId}", 1).with(bearerToken).contentType("application/json").content(jsonPatch))
+           .andDo(print())
+           .andExpect(status().isNotFound());
+  }
+
+  @Test
+  public void test__DELETE_projects_id__deletes_the_project_and_returns_it__when_the_id_is_found() throws Exception {
+    RequestPostProcessor bearerToken = oauthHelper.bearerToken("wtime-client");
+
+    Project project1 = new Project();
+    project1.setTitle("Project one");
+    project1.setUser("test_user");
+    sessionFactory.getCurrentSession().save(project1);
+
+    mockMvc.perform(delete("/projects/{projectId}", project1.getId()).with(bearerToken))
+           .andDo(print())
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$.title", is(project1.getTitle())));
+
+    List<Project> projectList = sessionFactory.getCurrentSession().createQuery("from Project").getResultList();
+
+    assertEquals(0, projectList.size());
+  }
+
+  @Test
+  public void test__DELETE_projects_id__returns_400__when_the_id_is_not_found() throws Exception {
+    RequestPostProcessor bearerToken = oauthHelper.bearerToken("wtime-client");
+
+    mockMvc.perform(delete("/projects/{projectId}", 1).with(bearerToken))
+           .andDo(print())
+           .andExpect(status().isNotFound());
+  }
 
 }

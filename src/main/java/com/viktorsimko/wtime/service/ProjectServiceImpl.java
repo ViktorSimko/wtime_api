@@ -24,7 +24,9 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
 
     Collection<Task> tasksToRemove = taskService.getTasks(userName, projectId);
 
-    tasksToRemove.forEach(task -> taskService.deleteResource(userName, task.getId()));
+    if (tasksToRemove != null) {
+      tasksToRemove.forEach(task -> taskService.deleteResource(userName, task.getId()));
+    }
 
     return super.deleteResource(userName, projectId);
   }
