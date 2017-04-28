@@ -3,6 +3,7 @@ package com.viktorsimko.wtime.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * This class represents a resource for the API.
@@ -47,4 +48,17 @@ public class Resource {
     this.user = user;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Resource)) return false;
+    Resource resource = (Resource) o;
+    return id == resource.id &&
+      Objects.equals(user, resource.user);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, user);
+  }
 }

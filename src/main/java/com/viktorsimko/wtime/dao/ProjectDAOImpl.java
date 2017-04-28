@@ -25,7 +25,17 @@ public class ProjectDAOImpl extends ResourceDAOImpl<Project> implements ProjectD
       return null;
     }
 
-    projectToUpdate.setTitle(updatedProject.getTitle());
+    if (updatedProject.getTitle() != null) {
+      projectToUpdate.setTitle(updatedProject.getTitle());
+    }
+
+    if (updatedProject.getDescription() != null) {
+      projectToUpdate.setDescription(updatedProject.getDescription());
+    }
+
+    if (updatedProject.getHourlyWage() != -1) {
+      projectToUpdate.setHourlyWage(updatedProject.getHourlyWage());
+    }
 
     sessionFactory.getCurrentSession().save(projectToUpdate);
 

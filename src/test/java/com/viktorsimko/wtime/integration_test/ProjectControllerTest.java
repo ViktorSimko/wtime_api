@@ -76,6 +76,8 @@ public class ProjectControllerTest {
     Project project = new Project();
     project.setUser("test_user");
     project.setTitle("Project one");
+    project.setDescription("The first project description...");
+    project.setHourlyWage(1000);
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -84,7 +86,9 @@ public class ProjectControllerTest {
     mockMvc.perform(post("/projects").with(bearerToken).contentType("application/json").content(jsonProject))
            .andDo(print())
            .andExpect(status().isCreated())
-           .andExpect(jsonPath("$.title", is(project.getTitle())));
+           .andExpect(jsonPath("$.title", is(project.getTitle())))
+           .andExpect(jsonPath("$.description", is(project.getDescription())))
+           .andExpect(jsonPath("$.hourlyWage", is(project.getHourlyWage())));
 
     List<Project> projectList = sessionFactory.getCurrentSession().createQuery("from Project").getResultList();
 
@@ -93,6 +97,8 @@ public class ProjectControllerTest {
     Project firstProject = projectList.get(0);
 
     assertEquals(project.getTitle(), firstProject.getTitle());
+    assertEquals(project.getDescription(), firstProject.getDescription());
+    assertEquals(project.getHourlyWage(), firstProject.getHourlyWage());
   }
 
   @Test
@@ -102,11 +108,15 @@ public class ProjectControllerTest {
     Project project1 = new Project();
     project1.setTitle("Project one");
     project1.setUser("test_user");
+    project1.setDescription("project 1 description");
+    project1.setHourlyWage(1000);
     sessionFactory.getCurrentSession().save(project1);
 
     Project project2 = new Project();
     project2.setTitle("Project two");
     project2.setUser("test_user");
+    project2.setDescription("project 2 description");
+    project2.setHourlyWage(1500);
     sessionFactory.getCurrentSession().save(project2);
 
     mockMvc.perform(get("/projects").with(bearerToken))
@@ -115,7 +125,11 @@ public class ProjectControllerTest {
            .andExpect(jsonPath("$").isArray())
            .andExpect(jsonPath("$", hasSize(2)))
            .andExpect(jsonPath("$[0].title", is(project1.getTitle())))
-           .andExpect(jsonPath("$[1].title", is(project2.getTitle())));
+           .andExpect(jsonPath("$[0].description", is(project1.getDescription())))
+           .andExpect(jsonPath("$[0].hourlyWage", is(project1.getHourlyWage())))
+           .andExpect(jsonPath("$[1].title", is(project2.getTitle())))
+           .andExpect(jsonPath("$[1].description", is(project2.getDescription())))
+           .andExpect(jsonPath("$[1].hourlyWage", is(project2.getHourlyWage())));
   }
 
   @Test
@@ -136,12 +150,16 @@ public class ProjectControllerTest {
     Project project1 = new Project();
     project1.setTitle("Project one");
     project1.setUser("test_user");
+    project1.setDescription("project 1 description");
+    project1.setHourlyWage(1000);
     sessionFactory.getCurrentSession().save(project1);
 
     mockMvc.perform(get("/projects/{projectId}", project1.getId()).with(bearerToken))
            .andDo(print())
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$.title", is(project1.getTitle())));
+           .andExpect(jsonPath("$.title", is(project1.getTitle())))
+           .andExpect(jsonPath("$.description", is(project1.getDescription())))
+           .andExpect(jsonPath("$.hourlyWage", is(project1.getHourlyWage())));
   }
 
   @Test
@@ -160,17 +178,23 @@ public class ProjectControllerTest {
     Project project1 = new Project();
     project1.setTitle("Project one");
     project1.setUser("test_user");
+    project1.setDescription("project 1 description");
+    project1.setHourlyWage(1000);
     sessionFactory.getCurrentSession().save(project1);
 
     Project patch = new Project();
     patch.setTitle("Updated title");
+    patch.setDescription("Updated description");
+    patch.setHourlyWage(1100);
 
     String jsonPatch = new ObjectMapper().writeValueAsString(patch);
 
     mockMvc.perform(patch("/projects/{projectId}", project1.getId()).with(bearerToken).contentType("application/json").content(jsonPatch))
            .andDo(print())
            .andExpect(status().isOk())
-           .andExpect(jsonPath("$.title", is(patch.getTitle())));
+           .andExpect(jsonPath("$.title", is(patch.getTitle())))
+           .andExpect(jsonPath("$.description", is(patch.getDescription())))
+           .andExpect(jsonPath("$.hourlyWage", is(patch.getHourlyWage())));
 
     List<Project> projectList = sessionFactory.getCurrentSession().createQuery("from Project").getResultList();
 
@@ -179,6 +203,8 @@ public class ProjectControllerTest {
     Project firstProject = projectList.get(0);
 
     assertEquals(patch.getTitle(), firstProject.getTitle());
+    assertEquals(patch.getDescription(), firstProject.getDescription());
+    assertEquals(patch.getHourlyWage(), firstProject.getHourlyWage());
   }
 
   @Test
@@ -187,6 +213,8 @@ public class ProjectControllerTest {
 
     Project patch = new Project();
     patch.setTitle("Updated title");
+    patch.setDescription("Updated description");
+    patch.setHourlyWage(1100);
 
     String jsonPatch = new ObjectMapper().writeValueAsString(patch);
 
@@ -202,6 +230,8 @@ public class ProjectControllerTest {
     Project project1 = new Project();
     project1.setTitle("Project one");
     project1.setUser("test_user");
+    project1.setDescription("project 1 description");
+    project1.setHourlyWage(1000);
     sessionFactory.getCurrentSession().save(project1);
 
     mockMvc.perform(delete("/projects/{projectId}", project1.getId()).with(bearerToken))
