@@ -1,6 +1,7 @@
 package com.viktorsimko.wtime.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.Duration;
 
 /**
@@ -11,17 +12,20 @@ import java.time.Duration;
 @Table(name = "task")
 public class Task extends Resource {
 
-  @Column(name = "project_id", nullable = false)
-  private int projectId = -1;
+  @NotNull
+  @Column(name = "project_id")
+  private Integer projectId;
 
+  @NotNull
   @Column(name = "title")
   private String title;
 
+  @NotNull
   @Column(name = "bonus")
-  private int bonus = -1;
+  private Integer bonus;
 
   @Transient
-  private int allIncome;
+  private Integer allIncome;
 
   @Transient
   private Duration allWorkedTime;
@@ -31,7 +35,7 @@ public class Task extends Resource {
    *
    * @return the id of the owner project
    */
-  public int getProjectId() {
+  public Integer getProjectId() {
     return projectId;
   }
 
@@ -40,7 +44,7 @@ public class Task extends Resource {
    *
    * @param projectId the id of the new owner project
    */
-  public void setProjectId(int projectId) {
+  public void setProjectId(Integer projectId) {
     this.projectId = projectId;
   }
 
@@ -67,7 +71,7 @@ public class Task extends Resource {
    *
    * @return the bonus of the task
    */
-  public int getBonus() {
+  public Integer getBonus() {
     return bonus;
   }
 
@@ -76,7 +80,7 @@ public class Task extends Resource {
    *
    * @param bonus the new bonus for the task
    */
-  public void setBonus(int bonus) {
+  public void setBonus(Integer bonus) {
     this.bonus = bonus;
   }
 
@@ -85,7 +89,7 @@ public class Task extends Resource {
    *
    * @return the total income from the task
    */
-  public int getAllIncome() {
+  public Integer getAllIncome() {
     return allIncome;
   }
 
@@ -94,7 +98,7 @@ public class Task extends Resource {
    *
    * @param allIncome the hourly wage to set for the task
    */
-  public void setAllIncome(int allIncome) {
+  public void setAllIncome(Integer allIncome) {
     this.allIncome = allIncome;
   }
 

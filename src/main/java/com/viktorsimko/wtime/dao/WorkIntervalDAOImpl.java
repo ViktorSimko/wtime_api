@@ -32,11 +32,11 @@ public class WorkIntervalDAOImpl extends ResourceDAOImpl<WorkInterval> implement
       return null;
     }
 
-    int newTaskId = updatedWorkInterval.getTaskId();
+    Integer newTaskId = updatedWorkInterval.getTaskId();
     LocalDateTime newBegin = updatedWorkInterval.getBegin();
     LocalDateTime newEnd = updatedWorkInterval.getEnd();
 
-    if (newTaskId != -1) {
+    if (newTaskId != null) {
       workIntervalToUpdate.setTaskId(newTaskId);
     }
 

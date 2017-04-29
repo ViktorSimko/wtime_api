@@ -3,6 +3,7 @@ package com.viktorsimko.wtime.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -12,11 +13,13 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Resource {
 
+  @NotNull
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE)
-  @Column(name = "id", unique = true, nullable = false)
-  private int id;
+  @Column(name = "id", unique = true)
+  private Integer id;
 
+  @NotNull
   @JsonIgnore
   @Column(name = "user")
   private String user;
@@ -26,7 +29,7 @@ public class Resource {
    *
    * @return the id of the resource
    */
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 

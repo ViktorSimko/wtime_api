@@ -36,10 +36,10 @@ public class TaskDAOImpl extends ResourceDAOImpl<Task> implements TaskDAO {
       return null;
     }
 
-    int newProjectId = updatedTask.getProjectId();
+    Integer newProjectId = updatedTask.getProjectId();
     String newTitle = updatedTask.getTitle();
 
-    if (newProjectId != -1) {
+    if (newProjectId != null) {
       taskToUpdate.setProjectId(newProjectId);
     }
 

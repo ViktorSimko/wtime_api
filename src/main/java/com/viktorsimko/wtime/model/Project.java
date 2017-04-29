@@ -3,6 +3,7 @@ package com.viktorsimko.wtime.model;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -13,19 +14,22 @@ import java.util.Objects;
 @Table(name = "project")
 public class Project extends Resource {
 
+  @NotNull
   @Column(name = "title")
   @Length(min = 1, message = "the title needs to be at least 1 character long ")
   private String title;
 
+  @NotNull
   @Column(name = "description")
   @Length(min = 1, message = "the description needs to be at least 1 character long ")
   private String description;
 
+  @NotNull
   @Column(name = "hourly_wage")
-  private int hourlyWage = -1;
+  private Integer hourlyWage;
 
   @Transient
-  private int allIncome;
+  private Integer allIncome;
 
   @Transient
   private Duration allWorkedTime;
@@ -71,7 +75,7 @@ public class Project extends Resource {
    *
    * @return the hourly wage of the project
    */
-  public int getHourlyWage() {
+  public Integer getHourlyWage() {
     return hourlyWage;
   }
 
@@ -80,7 +84,7 @@ public class Project extends Resource {
    *
    * @param hourlyWage the hourly wage to set for the project
    */
-  public void setHourlyWage(int hourlyWage) {
+  public void setHourlyWage(Integer hourlyWage) {
     this.hourlyWage = hourlyWage;
   }
 
@@ -89,7 +93,7 @@ public class Project extends Resource {
    *
    * @return the total income from the project
    */
-  public int getAllIncome() {
+  public Integer getAllIncome() {
     return allIncome;
   }
 
@@ -98,7 +102,7 @@ public class Project extends Resource {
    *
    * @param allIncome the hourly wage to set for the project
    */
-  public void setAllIncome(int allIncome) {
+  public void setAllIncome(Integer allIncome) {
     this.allIncome = allIncome;
   }
 

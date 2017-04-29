@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,20 +16,22 @@ import java.time.temporal.ChronoUnit;
 @Table(name = "work_interval")
 public class WorkInterval extends Resource {
 
-  @Column(name = "task_id", nullable = false)
-  private int taskId = -1;
+  @NotNull
+  @Column(name = "task_id")
+  private Integer taskId;
 
+  @NotNull
   @Column(name = "begin")
   private LocalDateTime begin;
 
   @Column(name = "end")
   private LocalDateTime end;
 
-  public void setTaskId(int taskId) {
+  public void setTaskId(Integer taskId) {
     this.taskId = taskId;
   }
 
-  public int getTaskId() {
+  public Integer getTaskId() {
     return taskId;
   }
 

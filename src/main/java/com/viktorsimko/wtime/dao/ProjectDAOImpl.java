@@ -33,7 +33,7 @@ public class ProjectDAOImpl extends ResourceDAOImpl<Project> implements ProjectD
       projectToUpdate.setDescription(updatedProject.getDescription());
     }
 
-    if (updatedProject.getHourlyWage() != -1) {
+    if (updatedProject.getHourlyWage() != null) {
       projectToUpdate.setHourlyWage(updatedProject.getHourlyWage());
     }
 
