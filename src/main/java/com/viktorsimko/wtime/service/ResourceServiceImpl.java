@@ -22,8 +22,8 @@ public class ResourceServiceImpl<R extends Resource> implements ResourceService<
   }
 
   @Override
-  public R getResource(String userName, int projectId) {
-    return resourceDAO.getResource(userName, projectId);
+  public R getResource(String userName, int resourceId) {
+    return resourceDAO.getResource(userName, resourceId);
   }
 
   @Override
@@ -32,8 +32,8 @@ public class ResourceServiceImpl<R extends Resource> implements ResourceService<
   }
 
   @Override
-  public R deleteResource(String userName, int projectId) {
-    return resourceDAO.deleteResource(userName, projectId);
+  public R deleteResource(String userName, int resourceId) {
+    return resourceDAO.deleteResource(userName, resourceId);
   }
 
 }

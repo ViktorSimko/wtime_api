@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,24 @@ import java.util.List;
 public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements ProjectService {
   @Autowired
   private TaskService taskService;
+
+  @Override
+  public Project getResource(String userName, int projectId) {
+    Project project = super.getResource(userName, projectId);
+
+//    int allIncome = taskService.allIncomeForProject(projectId);
+//
+//    project.setAllIncome(allIncome);
+    Duration allWorkedTime = taskService.allWorkedTimeForProject(userName, projectId);
+    project.setAllWorkedTime(allWorkedTime);
+
+    return project;
+  }
+
+  @Override
+  public List<Project> getResources(String userName) {
+    return super.getResources(userName);
+  }
 
   @Override
   public Project deleteResource(String userName, int projectId) {

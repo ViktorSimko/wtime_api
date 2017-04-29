@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * This class represents an interval of work done by the user on a given task.
@@ -44,5 +46,9 @@ public class WorkInterval extends Resource {
 
   public void setEnd(LocalDateTime end) {
     this.end = end;
+  }
+
+  public Duration getDuration() {
+    return (begin == null || end == null) ? Duration.ZERO : Duration.ofSeconds(ChronoUnit.SECONDS.between(begin, end));
   }
 }

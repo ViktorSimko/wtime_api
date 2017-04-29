@@ -1,8 +1,7 @@
 package com.viktorsimko.wtime.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
+import java.time.Duration;
 
 /**
  * This class represents tasks.
@@ -17,6 +16,15 @@ public class Task extends Resource {
 
   @Column(name = "title")
   private String title;
+
+  @Column(name = "bonus")
+  private int bonus = -1;
+
+  @Transient
+  private int allIncome;
+
+  @Transient
+  private Duration allWorkedTime;
 
   /**
    * The id of the project which this task belongs to.
@@ -52,5 +60,59 @@ public class Task extends Resource {
    */
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  /**
+   * The bonus of the task.
+   *
+   * @return the bonus of the task
+   */
+  public int getBonus() {
+    return bonus;
+  }
+
+  /**
+   * Sets the bonus of the task.
+   *
+   * @param bonus the new bonus for the task
+   */
+  public void setBonus(int bonus) {
+    this.bonus = bonus;
+  }
+
+  /**
+   * The total income from the task.
+   *
+   * @return the total income from the task
+   */
+  public int getAllIncome() {
+    return allIncome;
+  }
+
+  /**
+   * Sets total income of the task.
+   *
+   * @param allIncome the hourly wage to set for the task
+   */
+  public void setAllIncome(int allIncome) {
+    this.allIncome = allIncome;
+  }
+
+  /**
+   * The total time worked on the task.
+   *
+   * @return the total time worked on the task
+   */
+  public Duration getAllWorkedTime() {
+    return allWorkedTime;
+  }
+
+  /**
+   * Sets total time worked on the task.
+   *
+   * @param allWorkedTime the total time worked on the task
+   */
+  public void setAllWorkedTime(Duration allWorkedTime) {
+    this.allWorkedTime = allWorkedTime;
   }
 }

@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -42,5 +44,12 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
     }
 
     return super.updateResource(userName, resourceId, updatedResource);
+  }
+
+  @Override
+  public Duration allWorkedTimeForTask(String userName, int taskId) {
+    Collection<WorkInterval> workIntervalsForTask = getWorkIntervals(userName, taskId);
+
+    return workIntervalsForTask.stream().reduce(Duration.ZERO, (sum, workInterval) -> sum.plus(workInterval.getDuration()), Duration::plus);
   }
 }

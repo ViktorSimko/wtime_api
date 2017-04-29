@@ -1,8 +1,8 @@
 package com.viktorsimko.wtime.service;
 
 import com.viktorsimko.wtime.model.Task;
-import org.springframework.security.core.Authentication;
 
+import java.time.Duration;
 import java.util.Collection;
 
 /**
@@ -20,4 +20,5 @@ public interface TaskService extends ResourceService<Task> {
    */
   Collection<Task> getTasks(String userName, int projectId);
 
+  Duration allWorkedTimeForProject(String userName, int projectId);
 }
