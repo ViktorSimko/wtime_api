@@ -28,9 +28,9 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
       return null;
     }
 
-//    int allIncome = taskService.allIncomeForProject(projectId);
-//
-//    project.setAllIncome(allIncome);
+    int allIncome = taskService.allIncomeForProject(userName, projectId, project.getHourlyWage());
+    project.setAllIncome(allIncome);
+
     Duration allWorkedTime = taskService.allWorkedTimeForProject(userName, projectId);
     project.setAllWorkedTime(allWorkedTime);
 

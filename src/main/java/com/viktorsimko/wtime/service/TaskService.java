@@ -21,4 +21,6 @@ public interface TaskService extends ResourceService<Task> {
   Collection<Task> getTasks(String userName, int projectId);
 
   Duration allWorkedTimeForProject(String userName, int projectId);
+
+  int allIncomeForProject(String userName, int projectId, int hourlyWage);
 }

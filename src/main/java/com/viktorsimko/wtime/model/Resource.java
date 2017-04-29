@@ -1,6 +1,7 @@
 package com.viktorsimko.wtime.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import java.util.Objects;
 /**
  * This class represents a resource for the API.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Resource {

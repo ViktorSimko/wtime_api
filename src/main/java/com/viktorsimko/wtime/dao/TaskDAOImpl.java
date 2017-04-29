@@ -38,6 +38,7 @@ public class TaskDAOImpl extends ResourceDAOImpl<Task> implements TaskDAO {
 
     Integer newProjectId = updatedTask.getProjectId();
     String newTitle = updatedTask.getTitle();
+    Integer newBonus = updatedTask.getBonus();
 
     if (newProjectId != null) {
       taskToUpdate.setProjectId(newProjectId);
@@ -45,6 +46,10 @@ public class TaskDAOImpl extends ResourceDAOImpl<Task> implements TaskDAO {
 
     if (newTitle != null) {
       taskToUpdate.setTitle(newTitle);
+    }
+
+    if (newBonus != null) {
+      taskToUpdate.setBonus(newBonus);
     }
 
     sessionFactory.getCurrentSession().save(taskToUpdate);

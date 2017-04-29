@@ -2,6 +2,7 @@ package com.viktorsimko.wtime.service;
 
 import com.viktorsimko.wtime.dao.ProjectDAO;
 import com.viktorsimko.wtime.dao.TaskDAO;
+import com.viktorsimko.wtime.model.Project;
 import com.viktorsimko.wtime.model.Task;
 import com.viktorsimko.wtime.model.WorkInterval;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     if (task == null) {
       return null;
     }
+
+    Project project = projectDAO.getResource(userName, task.getProjectId());
+
+    int allIncome = workIntervalService.allIncomeForTask(userName, resourceId, project.getHourlyWage());
+
+    task.setAllIncome(allIncome);
 
     Duration allWorkedTime = workIntervalService.allWorkedTimeForTask(userName, resourceId);
 
@@ -63,7 +70,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
 
   @Override
   public Task updateResource(String userName, int resourceId, Task updatedResource) {
-    if (updatedResource.getProjectId() != -1 && projectDAO.getResource(userName, updatedResource.getProjectId()) == null) {
+    if (updatedResource.getProjectId() != null && projectDAO.getResource(userName, updatedResource.getProjectId()) == null) {
       return null;
     }
 
@@ -85,5 +92,13 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     Collection<Task> tasksForTheProject = getTasks(userName, projectId);
 
     return tasksForTheProject.stream().reduce(Duration.ZERO, (sum, task) -> sum.plus(workIntervalService.allWorkedTimeForTask(userName, task.getId())), Duration::plus);
+  }
+
+  @Override
+  public int allIncomeForProject(String userName, int projectId, int hourlyWage) {
+
+    Collection<Task> tasksForTheProject = getTasks(userName, projectId);
+
+    return tasksForTheProject.stream().reduce(0, (sum, task) -> sum + workIntervalService.allIncomeForTask(userName, task.getId(), hourlyWage) + task.getBonus(), (sum1, sum2) -> sum1 + sum2);
   }
 }

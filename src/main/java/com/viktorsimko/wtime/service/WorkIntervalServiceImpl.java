@@ -39,7 +39,7 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
 
   @Override
   public WorkInterval updateResource(String userName, int resourceId, WorkInterval updatedResource) {
-    if (updatedResource.getTaskId() != -1 && taskDAO.getResource(userName, updatedResource.getTaskId()) == null) {
+    if (updatedResource.getTaskId() != null && taskDAO.getResource(userName, updatedResource.getTaskId()) == null) {
       return null;
     }
 
@@ -51,5 +51,12 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
     Collection<WorkInterval> workIntervalsForTask = getWorkIntervals(userName, taskId);
 
     return workIntervalsForTask.stream().reduce(Duration.ZERO, (sum, workInterval) -> sum.plus(workInterval.getDuration()), Duration::plus);
+  }
+
+  @Override
+  public int allIncomeForTask(String userName, int taskId, int hourlyWage) {
+    Collection<WorkInterval> workIntervalsForTask = getWorkIntervals(userName, taskId);
+
+    return workIntervalsForTask.stream().reduce(0, (sum, workInterval) -> sum + workInterval.getIncome(hourlyWage), (sum1, sum2) -> sum1 + sum2);
   }
 }

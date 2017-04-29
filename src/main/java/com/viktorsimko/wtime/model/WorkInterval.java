@@ -54,4 +54,8 @@ public class WorkInterval extends Resource {
   public Duration getDuration() {
     return (begin == null || end == null) ? Duration.ZERO : Duration.ofSeconds(ChronoUnit.SECONDS.between(begin, end));
   }
+
+  public int getIncome(int hourlyWage) {
+    return getDuration() == null ? 0 : (int) Math.round(getDuration().getSeconds() / 3600.0 * hourlyWage);
+  }
 }
