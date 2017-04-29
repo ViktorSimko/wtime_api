@@ -24,6 +24,10 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
   public Project getResource(String userName, int projectId) {
     Project project = super.getResource(userName, projectId);
 
+    if (project == null) {
+      return null;
+    }
+
 //    int allIncome = taskService.allIncomeForProject(projectId);
 //
 //    project.setAllIncome(allIncome);

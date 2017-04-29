@@ -26,7 +26,11 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
 
   @Override
   public Task getResource(String userName, int resourceId) {
-    Task task =  super.getResource(userName, resourceId);
+    Task task = super.getResource(userName, resourceId);
+
+    if (task == null) {
+      return null;
+    }
 
     Duration allWorkedTime = workIntervalService.allWorkedTimeForTask(userName, resourceId);
 
