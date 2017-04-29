@@ -2,7 +2,7 @@ package com.viktorsimko.wtime.dao;
 
 import com.viktorsimko.wtime.model.Resource;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Interface for accessing and manipulating resources in the database.
@@ -23,7 +23,7 @@ public interface ResourceDAO<R extends Resource> {
    * @param userName the owner of the resources
    * @return a list of the resources of the user
    */
-  List<R> getResources(String userName);
+  Collection<R> getResources(String userName);
 
   /**
    * Get the {@code Resource} for a given id.

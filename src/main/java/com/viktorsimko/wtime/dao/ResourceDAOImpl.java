@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO
   }
 
   @Override
-  public List<R> getResources(String userName) {
+  public Collection<R> getResources(String userName) {
     Session session = sessionFactory.getCurrentSession();
 
     Query allResourcesQuery = session.createQuery("from " + getResourceClassName() + " where user = :userName");

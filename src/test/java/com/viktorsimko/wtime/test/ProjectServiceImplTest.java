@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -40,7 +41,7 @@ public class ProjectServiceImplTest {
 
     when(projectDAO.getResources(userName)).thenReturn(projects);
 
-    List<Project> returnedProjects = projectService.getResources(userName);
+    Collection<Project> returnedProjects = projectService.getResources(userName);
 
     assertTrue(returnedProjects == projects);
   }

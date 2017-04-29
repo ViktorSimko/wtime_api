@@ -2,6 +2,7 @@ package com.viktorsimko.wtime.service;
 
 import com.viktorsimko.wtime.model.Resource;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface ResourceService<R extends Resource> {
    * @param userName the name of the current user
    * @return the resources associated with the given {@code userName}
    */
-  List<R> getResources(String userName);
+  Collection<R> getResources(String userName);
 
   /**
    * Returns the {@code resource} for the given {@code resourceId}.

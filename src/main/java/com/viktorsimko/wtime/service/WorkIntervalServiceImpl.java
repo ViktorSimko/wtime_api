@@ -20,7 +20,7 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
   private TaskDAO taskDAO;
 
   @Override
-  public List<WorkInterval> getWorkIntervals(String userName, int taskId) {
+  public Collection<WorkInterval> getWorkIntervals(String userName, int taskId) {
     if (taskDAO.getResource(userName, taskId) == null) {
       return null;
     }

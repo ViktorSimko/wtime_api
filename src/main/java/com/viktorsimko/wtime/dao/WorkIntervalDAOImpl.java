@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by simkoviktor on 2017. 04. 23..
@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class WorkIntervalDAOImpl extends ResourceDAOImpl<WorkInterval> implements WorkIntervalDAO {
   @Override
-  public List<WorkInterval> getWorkIntervals(String userName, int taskId) {
+  public Collection<WorkInterval> getWorkIntervals(String userName, int taskId) {
     Session session = sessionFactory.getCurrentSession();
 
     Query workIntervalsForTask = session.createQuery("from WorkInterval where taskId = :taskId and user = :userName");

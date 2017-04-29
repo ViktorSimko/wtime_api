@@ -34,8 +34,12 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
   }
 
   @Override
-  public List<Project> getResources(String userName) {
-    return super.getResources(userName);
+  public Collection<Project> getResources(String userName) {
+    Collection<Project> projects = super.getResources(userName);
+
+    projects.forEach(p -> p.setAllWorkedTime(taskService.allWorkedTimeForProject(userName, p.getId())));
+
+    return projects;
   }
 
   @Override

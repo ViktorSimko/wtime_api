@@ -41,7 +41,11 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
       return null;
     }
 
-    return ((TaskDAO) resourceDAO).getTasks(userName, projectId);
+    Collection<Task> tasks = ((TaskDAO) resourceDAO).getTasks(userName, projectId);
+
+    tasks.forEach(t -> t.setAllWorkedTime(workIntervalService.allWorkedTimeForTask(userName, t.getId())));
+
+    return tasks;
   }
 
   @Override

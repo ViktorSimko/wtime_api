@@ -4,7 +4,7 @@ import com.viktorsimko.wtime.dao.ResourceDAO;
 import com.viktorsimko.wtime.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import java.util.Collection;
 
 public class ResourceServiceImpl<R extends Resource> implements ResourceService<R> {
 
@@ -12,7 +12,7 @@ public class ResourceServiceImpl<R extends Resource> implements ResourceService<
   protected ResourceDAO<R> resourceDAO;
 
   @Override
-  public List<R> getResources(String userName) {
+  public Collection<R> getResources(String userName) {
     return resourceDAO.getResources(userName);
   }
 
