@@ -28,12 +28,6 @@ public class Project extends Resource {
   @Column(name = "hourly_wage")
   private Integer hourlyWage;
 
-  @Transient
-  private Integer allIncome;
-
-  @Transient
-  private Duration allWorkedTime;
-
   /**
    * The title of the project.
    *
@@ -88,41 +82,41 @@ public class Project extends Resource {
     this.hourlyWage = hourlyWage;
   }
 
-  /**
-   * The total income from the project.
-   *
-   * @return the total income from the project
-   */
-  public Integer getAllIncome() {
-    return allIncome;
-  }
-
-  /**
-   * Sets total income of the project.
-   *
-   * @param allIncome the hourly wage to set for the project
-   */
-  public void setAllIncome(Integer allIncome) {
-    this.allIncome = allIncome;
-  }
-
-  /**
-   * The total time worked on the project.
-   *
-   * @return the total time worked on the project
-   */
-  public Duration getAllWorkedTime() {
-    return allWorkedTime;
-  }
-
-  /**
-   * Sets total time worked on the project.
-   *
-   * @param allWorkedTime total time worked on the project
-   */
-  public void setAllWorkedTime(Duration allWorkedTime) {
-    this.allWorkedTime = allWorkedTime;
-  }
+//  /**
+//   * The total income from the project.
+//   *
+//   * @return the total income from the project
+//   */
+//  public Integer getAllIncome() {
+//    return allIncome;
+//  }
+//
+//  /**
+//   * Sets total income of the project.
+//   *
+//   * @param allIncome the hourly wage to set for the project
+//   */
+//  public void setAllIncome(Integer allIncome) {
+//    this.allIncome = allIncome;
+//  }
+//
+//  /**
+//   * The total time worked on the project.
+//   *
+//   * @return the total time worked on the project
+//   */
+//  public Duration getAllWorkedTime() {
+//    return allWorkedTime;
+//  }
+//
+//  /**
+//   * Sets total time worked on the project.
+//   *
+//   * @param allWorkedTime total time worked on the project
+//   */
+//  public void setAllWorkedTime(Duration allWorkedTime) {
+//    this.allWorkedTime = allWorkedTime;
+//  }
 
   @Override
   public boolean equals(Object o) {

@@ -47,16 +47,24 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
   }
 
   @Override
-  public Duration allWorkedTimeForTask(String userName, int taskId) {
-    Collection<WorkInterval> workIntervalsForTask = getWorkIntervals(userName, taskId);
+  public Integer getAllWorkedTime(String userName, int taskId) {
+    WorkInterval workInterval = getResource(userName, taskId);
 
-    return workIntervalsForTask.stream().reduce(Duration.ZERO, (sum, workInterval) -> sum.plus(workInterval.getDuration()), Duration::plus);
+    if (workInterval == null) {
+      return null;
+    }
+
+    return workInterval.getDuration() == null ? 0 : (int) workInterval.getDuration().getSeconds();
   }
 
   @Override
-  public int allIncomeForTask(String userName, int taskId, int hourlyWage) {
-    Collection<WorkInterval> workIntervalsForTask = getWorkIntervals(userName, taskId);
+  public Integer getAllIncome(String userName, int workIntervalId, int hourlyWage) {
+    WorkInterval workInterval = getResource(userName, workIntervalId);
 
-    return workIntervalsForTask.stream().reduce(0, (sum, workInterval) -> sum + workInterval.getIncome(hourlyWage), (sum1, sum2) -> sum1 + sum2);
+    if (workInterval == null) {
+      return null;
+    }
+
+    return workInterval.getDuration() == null ? 0 : (int) Math.round(workInterval.getDuration().getSeconds() / 3600.0 * hourlyWage);
   }
 }

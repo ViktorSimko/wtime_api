@@ -26,37 +26,12 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
   private WorkIntervalService workIntervalService;
 
   @Override
-  public Task getResource(String userName, int resourceId) {
-    Task task = super.getResource(userName, resourceId);
-
-    if (task == null) {
-      return null;
-    }
-
-    Project project = projectDAO.getResource(userName, task.getProjectId());
-
-    int allIncome = workIntervalService.allIncomeForTask(userName, resourceId, project.getHourlyWage());
-
-    task.setAllIncome(allIncome);
-
-    Duration allWorkedTime = workIntervalService.allWorkedTimeForTask(userName, resourceId);
-
-    task.setAllWorkedTime(allWorkedTime);
-
-    return task;
-  }
-
-  @Override
   public Collection<Task> getTasks(String userName, int projectId) {
     if (projectDAO.getResource(userName, projectId) == null) {
       return null;
     }
 
-    Collection<Task> tasks = ((TaskDAO) resourceDAO).getTasks(userName, projectId);
-
-    tasks.forEach(t -> t.setAllWorkedTime(workIntervalService.allWorkedTimeForTask(userName, t.getId())));
-
-    return tasks;
+    return ((TaskDAO) resourceDAO).getTasks(userName, projectId);
   }
 
   @Override
@@ -78,27 +53,54 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
   }
 
   @Override
-  public Task deleteResource(String userName, int projectId) {
-    Collection<WorkInterval> workIntervals = workIntervalService.getWorkIntervals(userName, projectId);
+  public Task deleteResource(String userName, int taskId) {
+    Collection<WorkInterval> workIntervals = workIntervalService.getWorkIntervals(userName, taskId);
 
     workIntervals.forEach(workInterval -> workIntervalService.deleteResource(userName, workInterval.getId()));
 
-    return super.deleteResource(userName, projectId);
+    return super.deleteResource(userName, taskId);
   }
 
   @Override
-  public Duration allWorkedTimeForProject(String userName, int projectId) {
+  public Integer getAllWorkedTime(String userName, int taskId) {
 
-    Collection<Task> tasksForTheProject = getTasks(userName, projectId);
+    Task task = getResource(userName, taskId);
 
-    return tasksForTheProject.stream().reduce(Duration.ZERO, (sum, task) -> sum.plus(workIntervalService.allWorkedTimeForTask(userName, task.getId())), Duration::plus);
+    if (task == null) {
+      return null;
+    }
+
+    return workIntervalService.getWorkIntervals(userName, taskId).stream()
+      .mapToInt(workInterval -> workIntervalService.getAllWorkedTime(userName, workInterval.getId()))
+      .sum();
   }
 
   @Override
-  public int allIncomeForProject(String userName, int projectId, int hourlyWage) {
+  public Integer getAllIncome(String userName, int taskId, int hourlyWage) {
+    Task task = getResource(userName, taskId);
 
-    Collection<Task> tasksForTheProject = getTasks(userName, projectId);
+    if (task == null) {
+      return null;
+    }
 
-    return tasksForTheProject.stream().reduce(0, (sum, task) -> sum + workIntervalService.allIncomeForTask(userName, task.getId(), hourlyWage) + task.getBonus(), (sum1, sum2) -> sum1 + sum2);
+    return workIntervalService.getWorkIntervals(userName, taskId).stream()
+      .reduce(0, (sum, workInterval) -> sum + workIntervalService.getAllIncome(userName, workInterval.getId(), hourlyWage) + task.getBonus(), (sum1, sum2) -> sum1 + sum2);
+  }
+
+  @Override
+  public Integer getAllIncome(String userName, int taskId) {
+    Task task = getResource(userName, taskId);
+
+    if (task == null) {
+      return null;
+    }
+
+    Project project = projectDAO.getResource(userName, task.getProjectId());
+
+    if (project == null) {
+      return null;
+    }
+
+    return getAllIncome(userName, taskId, project.getHourlyWage());
   }
 }

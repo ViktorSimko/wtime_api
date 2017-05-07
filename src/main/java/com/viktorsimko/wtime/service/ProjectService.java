@@ -9,4 +9,9 @@ import java.util.List;
  */
 public interface ProjectService extends ResourceService<Project> {
 
+  Integer getAllIncome(String userName, int projectId);
+
+  Integer getAllWorkedTime(String userName, int projectId);
+
 }
+

@@ -57,6 +57,22 @@ public class TaskController {
     return checkResource(task);
   }
 
+  @GetMapping("/tasks/{taskId}/allIncome")
+  public ResponseEntity<Integer> getAllIncomeForProject(Authentication authentication, @PathVariable("taskId") int taskId) {
+    String userName = authentication.getName();
+    Integer allIncome = taskService.getAllIncome(userName, taskId);
+
+    return checkResource(allIncome);
+  }
+
+  @GetMapping("/tasks/{taskId}/allWorkedTime")
+  public ResponseEntity<Integer> getAllWorkedTimeForProject(Authentication authentication, @PathVariable("taskId") int taskId) {
+    String userName = authentication.getName();
+    Integer allWorkedTime = taskService.getAllWorkedTime(userName, taskId);
+
+    return checkResource(allWorkedTime);
+  }
+
   @PatchMapping("/tasks/{taskId}")
   public ResponseEntity<Task> patchTask(Authentication authentication, @PathVariable("taskId") int taskId, @RequestBody Task updateInfo) {
     String userName = authentication.getName();

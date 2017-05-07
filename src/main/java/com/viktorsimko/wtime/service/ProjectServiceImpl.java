@@ -21,29 +21,29 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
   private TaskService taskService;
 
   @Override
-  public Project getResource(String userName, int projectId) {
-    Project project = super.getResource(userName, projectId);
+  public Integer getAllIncome(String userName, int projectId) {
+    Project project = getResource(userName, projectId);
 
     if (project == null) {
       return null;
     }
 
-    int allIncome = taskService.allIncomeForProject(userName, projectId, project.getHourlyWage());
-    project.setAllIncome(allIncome);
-
-    Duration allWorkedTime = taskService.allWorkedTimeForProject(userName, projectId);
-    project.setAllWorkedTime(allWorkedTime);
-
-    return project;
+    return taskService.getTasks(userName, projectId).stream()
+      .mapToInt(task -> taskService.getAllIncome(userName, task.getId(), project.getHourlyWage()))
+      .sum();
   }
 
   @Override
-  public Collection<Project> getResources(String userName) {
-    Collection<Project> projects = super.getResources(userName);
+  public Integer getAllWorkedTime(String userName, int projectId) {
+    Project project = getResource(userName, projectId);
 
-    projects.forEach(p -> p.setAllWorkedTime(taskService.allWorkedTimeForProject(userName, p.getId())));
+    if (project == null) {
+      return null;
+    }
 
-    return projects;
+    return taskService.getTasks(userName, projectId).stream()
+      .mapToInt(task -> taskService.getAllWorkedTime(userName, task.getId()))
+      .sum();
   }
 
   @Override

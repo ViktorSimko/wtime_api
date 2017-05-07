@@ -12,7 +12,7 @@ public interface WorkIntervalService extends ResourceService<WorkInterval> {
 
   Collection<WorkInterval> getWorkIntervals(String userName, int taskId);
 
-  Duration allWorkedTimeForTask(String userName, int taskId);
+  Integer getAllWorkedTime(String userName, int taskId);
 
-  int allIncomeForTask(String userName, int taskId, int hourlyWage);
+  Integer getAllIncome(String userName, int id, int hourlyWage);
 }

@@ -27,23 +27,6 @@ public class ProjectController {
   private ProjectService projectService;
 
   /**
-   * Get all the projects for the authenticated user.
-   *
-   * @param authentication the authentication object passed in by Spring Security
-   * @return all the projects for the authenticated user with a response
-   */
-  @GetMapping
-  public ResponseEntity<Collection<Project>> getProjects(Authentication authentication) {
-    String userName = authentication.getName();
-
-    logger.info("GET /projects " + userName);
-
-    Collection<Project> projects = projectService.getResources(userName);
-
-    return checkResource(projects);
-  }
-
-  /**
    * Adds the project for the authenticated user.
    *
    * @param authentication the authentication object passed in by Spring Security
@@ -62,6 +45,23 @@ public class ProjectController {
   }
 
   /**
+   * Get all the projects for the authenticated user.
+   *
+   * @param authentication the authentication object passed in by Spring Security
+   * @return all the projects for the authenticated user with a response
+   */
+  @GetMapping
+  public ResponseEntity<Collection<Project>> getProjects(Authentication authentication) {
+    String userName = authentication.getName();
+
+    logger.info("GET /projects " + userName);
+
+    Collection<Project> projects = projectService.getResources(userName);
+
+    return checkResource(projects);
+  }
+
+  /**
    * Returns a project for the given projectId.
    *
    * @param authentication the authentication object passed in by Spring Security
@@ -75,6 +75,22 @@ public class ProjectController {
     Project project = projectService.getResource(userName, projectId);
 
     return checkResource(project);
+  }
+
+  @GetMapping("/{projectId}/allIncome")
+  public ResponseEntity<Integer> getAllIncomeForProject(Authentication authentication, @PathVariable("projectId") int projectId) {
+    String userName = authentication.getName();
+    Integer allIncome = projectService.getAllIncome(userName, projectId);
+
+    return checkResource(allIncome);
+  }
+
+  @GetMapping("/{projectId}/allWorkedTime")
+  public ResponseEntity<Integer> getAllWorkedTimeForProject(Authentication authentication, @PathVariable("projectId") int projectId) {
+    String userName = authentication.getName();
+    Integer allWorkedTime = projectService.getAllWorkedTime(userName, projectId);
+
+    return checkResource(allWorkedTime);
   }
 
   /**
