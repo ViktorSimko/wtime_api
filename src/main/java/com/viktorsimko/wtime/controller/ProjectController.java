@@ -5,12 +5,13 @@ import static com.viktorsimko.wtime.util.ResourceChecker.checkResourceCreated;
 
 import com.viktorsimko.wtime.model.Project;
 import com.viktorsimko.wtime.service.ProjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.Collection;
 
 /**
@@ -19,6 +20,8 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/projects")
 public class ProjectController {
+
+  Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
   @Autowired
   private ProjectService projectService;
@@ -32,6 +35,8 @@ public class ProjectController {
   @GetMapping
   public ResponseEntity<Collection<Project>> getProjects(Authentication authentication) {
     String userName = authentication.getName();
+
+    logger.info("GET /projects " + userName);
 
     Collection<Project> projects = projectService.getResources(userName);
 
