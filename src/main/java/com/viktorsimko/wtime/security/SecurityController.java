@@ -17,7 +17,7 @@ import java.util.Collections;
  */
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class SecurityController {
 
   @Autowired
