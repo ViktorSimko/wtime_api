@@ -112,7 +112,7 @@ public class ProjectServiceImplTest {
   }
 
   @Test
-  public void test__deleteResource__should_return_what_super_deleteResource_returns() {
+  public void test__deleteResource__should_return_what_projectDAO_deleteResource_returns() {
     when(projectDAO.deleteResource(userName, projectId)).thenReturn(project);
 
     Project returnedProject = projectService.deleteResource(userName, projectId);
