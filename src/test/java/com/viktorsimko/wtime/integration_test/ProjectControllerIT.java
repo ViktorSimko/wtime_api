@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 })
 @Transactional()
 @WebAppConfiguration
-public class ProjectControllerTest {
+public class ProjectControllerIT {
 
   @Autowired
   private WebApplicationContext webApplicationContext;

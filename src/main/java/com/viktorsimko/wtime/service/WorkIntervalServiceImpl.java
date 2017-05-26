@@ -11,9 +11,6 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by simkoviktor on 2017. 04. 23..
- */
 @Service
 public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> implements WorkIntervalService {
   @Autowired

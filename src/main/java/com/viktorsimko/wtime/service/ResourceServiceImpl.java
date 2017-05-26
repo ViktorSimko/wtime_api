@@ -3,9 +3,11 @@ package com.viktorsimko.wtime.service;
 import com.viktorsimko.wtime.dao.ResourceDAO;
 import com.viktorsimko.wtime.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class ResourceServiceImpl<R extends Resource> implements ResourceService<R> {
 
   @Autowired
