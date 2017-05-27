@@ -77,6 +77,10 @@ public class TaskServiceImplTest {
     TestUtil.setIdOnResource(workInterval2, 2);
     workIntervals.add(workInterval2);
 
+    WorkInterval workInterval3 = new WorkInterval();
+    TestUtil.setIdOnResource(workInterval3, 3);
+    workIntervals.add(workInterval3);
+
     tasks = new ArrayList<>();
 
     Task task1 = new Task();
@@ -177,9 +181,10 @@ public class TaskServiceImplTest {
     when(workIntervalService.getWorkIntervals(userName, taskId)).thenReturn(workIntervals);
     when(workIntervalService.getAllWorkedTime(userName, 1)).thenReturn(500);
     when(workIntervalService.getAllWorkedTime(userName, 2)).thenReturn(600);
+    when(workIntervalService.getAllWorkedTime(userName, 3)).thenReturn(400);
 
     Integer allWorkedTime = taskService.getAllWorkedTime(userName, taskId);
-    assertThat(allWorkedTime, is(equalTo(1100)));
+    assertThat(allWorkedTime, is(equalTo(1500)));
   }
 
   @Test
@@ -193,9 +198,10 @@ public class TaskServiceImplTest {
     when(workIntervalService.getWorkIntervals(userName, taskId)).thenReturn(workIntervals);
     when(workIntervalService.getAllIncome(userName, 1, 1100)).thenReturn(400);
     when(workIntervalService.getAllIncome(userName, 2, 1100)).thenReturn(500);
+    when(workIntervalService.getAllIncome(userName, 3, 1100)).thenReturn(600);
 
     Integer allIncome = taskService.getAllIncome(userName, taskId, 1100);
-    assertThat(allIncome, is(equalTo(1300)));
+    assertThat(allIncome, is(equalTo(2100)));
   }
   
   @Test
@@ -221,9 +227,10 @@ public class TaskServiceImplTest {
     when(workIntervalService.getWorkIntervals(userName, taskId)).thenReturn(workIntervals);
     when(workIntervalService.getAllIncome(userName, 1, 1100)).thenReturn(400);
     when(workIntervalService.getAllIncome(userName, 2, 1100)).thenReturn(500);
+    when(workIntervalService.getAllIncome(userName, 3, 1100)).thenReturn(600);
 
     Integer allIncome = taskService.getAllIncome(userName, taskId);
 
-    assertThat(allIncome, is(equalTo(1300)));
+    assertThat(allIncome, is(equalTo(2100)));
   }
 }

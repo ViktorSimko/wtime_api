@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -99,6 +100,13 @@ public class ProjectServiceImplTest {
   public void test_getAllWorkedTime__returns_null_when_project_not_found() {
     Integer sumOfWorkedTime = projectService.getAllWorkedTime(null, projectId);
     assertTrue(sumOfWorkedTime == null);
+  }
+
+  @Test
+  public void test__deleteResource__when_project_not_found__should_return_null() {
+    when(taskService.getTasks(userName, projectId)).thenReturn(null);
+    Project returnedProject = projectService.deleteResource(userName, projectId);
+    assertThat(returnedProject, is(nullValue()));
   }
 
   @Test

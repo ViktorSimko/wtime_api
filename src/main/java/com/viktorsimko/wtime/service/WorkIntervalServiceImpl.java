@@ -51,7 +51,7 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
       return null;
     }
 
-    return workInterval.getDuration() == null ? 0 : (int) workInterval.getDuration().getSeconds();
+    return (int) workInterval.getDuration().getSeconds();
   }
 
   @Override
@@ -62,6 +62,6 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
       return null;
     }
 
-    return workInterval.getDuration() == null ? 0 : (int) Math.round(workInterval.getDuration().getSeconds() / 3600.0 * hourlyWage);
+    return (int) Math.round(workInterval.getDuration().getSeconds() / 3600.0 * hourlyWage);
   }
 }
