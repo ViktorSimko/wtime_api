@@ -2,6 +2,8 @@ package com.viktorsimko.wtime.service;
 
 import com.viktorsimko.wtime.dao.ResourceDAO;
 import com.viktorsimko.wtime.model.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,6 @@ import java.util.Collection;
  * @param <R> the class of the concrete resource
  */
 public class ResourceServiceImpl<R extends Resource> implements ResourceService<R> {
-
   @Autowired
   protected ResourceDAO<R> resourceDAO;
 

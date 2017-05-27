@@ -5,6 +5,8 @@ import com.viktorsimko.wtime.dao.TaskDAO;
 import com.viktorsimko.wtime.model.Project;
 import com.viktorsimko.wtime.model.Task;
 import com.viktorsimko.wtime.model.WorkInterval;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskService {
+
+  private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
+
   @Autowired
   private ProjectDAO projectDAO;
 
@@ -28,6 +33,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
   @Override
   public Collection<Task> getTasks(String userName, int projectId) {
     if (projectDAO.getResource(userName, projectId) == null) {
+      logger.info("requested project: {} for user: {} not found", userName, projectId);
       return null;
     }
 
@@ -37,6 +43,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
   @Override
   public Task addResource(Task resource) {
     if (projectDAO.getResource(resource.getUser(), resource.getProjectId()) == null) {
+      logger.info("requested project: {} for user: {} not found", resource.getUser(), resource.getProjectId());
       return null;
     }
 
@@ -46,6 +53,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
   @Override
   public Task updateResource(String userName, int resourceId, Task updatedResource) {
     if (updatedResource.getProjectId() != null && projectDAO.getResource(userName, updatedResource.getProjectId()) == null) {
+      logger.info("requested project: {} for user: {} not found", userName, updatedResource.getProjectId());
       return null;
     }
 
@@ -67,6 +75,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     Task task = getResource(userName, taskId);
 
     if (task == null) {
+      logger.info("requested task: {} for user: {} not found", userName, taskId);
       return null;
     }
 
@@ -80,6 +89,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     Task task = getResource(userName, taskId);
 
     if (task == null) {
+      logger.info("requested task: {} for user: {} not found", userName, taskId);
       return null;
     }
 
@@ -92,12 +102,14 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     Task task = getResource(userName, taskId);
 
     if (task == null) {
+      logger.info("requested task: {} for user: {} not found", userName, taskId);
       return null;
     }
 
     Project project = projectDAO.getResource(userName, task.getProjectId());
 
     if (project == null) {
+      logger.info("requested project: {} for user: {} not found", userName, task.getProjectId());
       return null;
     }
 

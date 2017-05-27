@@ -2,6 +2,8 @@ package com.viktorsimko.wtime.service;
 
 import com.viktorsimko.wtime.model.Project;
 import com.viktorsimko.wtime.model.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Collection;
@@ -11,6 +13,8 @@ import java.util.Collection;
  */
 @Service
 public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements ProjectService {
+  private Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
+
   @Autowired
   private TaskService taskService;
 
@@ -19,6 +23,7 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
     Project project = getResource(userName, projectId);
 
     if (project == null) {
+      logger.info("requested project: {} for user: {} not found", userName, projectId);
       return null;
     }
 
@@ -32,6 +37,7 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
     Project project = getResource(userName, projectId);
 
     if (project == null) {
+      logger.info("requested project: {} for user: {} not found", userName, projectId);
       return null;
     }
 
