@@ -84,12 +84,16 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
    *
    * @return the properties object
    */
-  private Properties hibernateProperties() {
+  private Properties hibernateProperties() throws IOException {
+    InputStream inputStream = WTimeConfiguration.class.getClassLoader().getResourceAsStream("hibernate.properties");
+
+    if (inputStream == null) {
+      logger.error("Hibernate properties not found!");
+    }
+
     return new Properties() {
       {
-        setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        setProperty("hibernate.show_sql", "true");
-        setProperty("hibernate.hbm2ddl.auto", "update");
+        load(inputStream);
       }
     };
   }
