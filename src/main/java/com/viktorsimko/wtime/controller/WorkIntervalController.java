@@ -2,6 +2,8 @@ package com.viktorsimko.wtime.controller;
 
 import com.viktorsimko.wtime.model.WorkInterval;
 import com.viktorsimko.wtime.service.WorkIntervalService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,8 @@ import static com.viktorsimko.wtime.util.ResourceChecker.checkResourceCreated;
  */
 @RestController
 public class WorkIntervalController {
+
+  private Logger logger = LoggerFactory.getLogger(WorkIntervalController.class);
 
   @Autowired
   private WorkIntervalService workIntervalService;
@@ -34,6 +38,8 @@ public class WorkIntervalController {
     workInterval.setUser(userName);
     WorkInterval savedWorkInterval = workIntervalService.addResource(workInterval);
 
+    logger.debug("POST /work_intervals user: {}", userName);
+
     return checkResourceCreated(savedWorkInterval);
   }
 
@@ -50,6 +56,8 @@ public class WorkIntervalController {
 
     Collection<WorkInterval> workIntervals = workIntervalService.getWorkIntervals(userName, taskId);
 
+    logger.debug("GET /tasks/{}/work_intervals user: {}", taskId, userName);
+
     return checkResource(workIntervals);
   }
 
@@ -64,6 +72,8 @@ public class WorkIntervalController {
     String userName = authentication.getName();
 
     Collection<WorkInterval> workIntervals = workIntervalService.getResources(userName);
+
+    logger.debug("GET /work_intervals user: {}", userName);
 
     return checkResource(workIntervals);
   }
@@ -80,6 +90,8 @@ public class WorkIntervalController {
     String userName = authentication.getName();
 
     WorkInterval workInterval = workIntervalService.getResource(userName, workIntervalId);
+
+    logger.debug("GET /work_intervals/{} user: {}", workIntervalId, userName);
 
     return checkResource(workInterval);
   }
@@ -98,6 +110,8 @@ public class WorkIntervalController {
 
     WorkInterval workInterval = workIntervalService.updateResource(userName, workIntervalId, updateInfo);
 
+    logger.debug("PATCH /work_intervals/{} user: {}", workIntervalId, userName);
+
     return checkResource(workInterval);
   }
 
@@ -113,6 +127,8 @@ public class WorkIntervalController {
     String userName = authentication.getName();
 
     WorkInterval workInterval = workIntervalService.deleteResource(userName, workIntervalId);
+
+    logger.debug("DELETE /work_intervals/{} user: {}", workIntervalId, userName);
 
     return checkResource(workInterval);
   }
