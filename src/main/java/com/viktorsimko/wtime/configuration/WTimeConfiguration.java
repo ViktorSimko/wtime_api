@@ -16,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -47,6 +49,24 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
     dataSource.setMinPoolSize(3);
     dataSource.setMaxPoolSize(20);
     dataSource.setMaxIdleTime(30000);
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+
+    String createUsers = "CREATE TABLE IF NOT EXISTS users (\n" +
+        "    username varchar(50),\n" +
+        "    password varchar(50),\n" +
+        "    enabled boolean,\n" +
+        "    PRIMARY KEY (username)\n" +
+        ")";
+
+    String createAuthorities = "CREATE TABLE IF NOT EXISTS authorities(\n" +
+        "    username varchar(50),\n" +
+        "    authority varchar(50),\n" +
+        "    FOREIGN KEY (username) REFERENCES users(username)\n" +
+        ")";
+
+    statement.execute(createUsers);
+    statement.execute(createAuthorities);
     return dataSource;
   }
 
