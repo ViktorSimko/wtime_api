@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Service
 public class ResourceServiceImpl<R extends Resource> implements ResourceService<R> {
 
   @Autowired
