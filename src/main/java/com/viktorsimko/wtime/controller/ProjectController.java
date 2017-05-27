@@ -77,6 +77,13 @@ public class ProjectController {
     return checkResource(project);
   }
 
+  /**
+   * Returns all the income from the project, or null if the project not found.
+   *
+   * @param authentication the authentication object passed in by Spring Security
+   * @param projectId the id of the project
+   * @return all the income from the project, or null if the project not found
+   */
   @GetMapping("/{projectId}/allIncome")
   public ResponseEntity<Integer> getAllIncomeForProject(Authentication authentication, @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
@@ -85,6 +92,13 @@ public class ProjectController {
     return checkResource(allIncome);
   }
 
+  /**
+   * Returns the sum of time spent working on the project.
+   *
+   * @param authentication the authentication object passed in by Spring Security
+   * @param projectId the id of the project
+   * @return the sum of time spent with the project
+   */
   @GetMapping("/{projectId}/allWorkedTime")
   public ResponseEntity<Integer> getAllWorkedTimeForProject(Authentication authentication, @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();

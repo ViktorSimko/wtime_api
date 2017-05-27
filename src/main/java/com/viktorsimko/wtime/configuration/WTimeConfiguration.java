@@ -50,12 +50,11 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
    * @throws Exception if the creation of the data source {@code Bean} throws
    */
   @Bean
-  @Autowired
-  public LocalSessionFactoryBean sessionFactory(Properties hibernateProperties) throws Exception {
+  public LocalSessionFactoryBean sessionFactory() throws Exception {
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setDataSource(dataSource());
     sessionFactory.setPackagesToScan("com.viktorsimko.wtime.model");
-    sessionFactory.setHibernateProperties(hibernateProperties);
+    sessionFactory.setHibernateProperties(hibernateProperties());
     return sessionFactory;
   }
 
@@ -78,8 +77,7 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
    *
    * @return the properties object
    */
-  @Bean
-  public Properties hibernateProperties() {
+  private Properties hibernateProperties() {
     return new Properties() {
       {
         setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
