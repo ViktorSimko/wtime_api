@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+/**
+ * A generic {@code ResourceService} implementation.
+ *
+ * @param <R> the class of the concrete resource
+ */
 public class ResourceServiceImpl<R extends Resource> implements ResourceService<R> {
 
   @Autowired

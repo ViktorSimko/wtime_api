@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-  public static final String RESOURCE_ID = "wtime_api";
+  private static final String RESOURCE_ID = "wtime_api";
 
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

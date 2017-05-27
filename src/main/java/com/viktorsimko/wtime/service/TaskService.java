@@ -20,9 +20,31 @@ public interface TaskService extends ResourceService<Task> {
    */
   Collection<Task> getTasks(String userName, int projectId);
 
+  /**
+   * Returns all the income for the task with the given hourly wage.
+   *
+   * @param userName the user
+   * @param taskId the id of the task
+   * @param hourlyWage the hourly wage for the project
+   * @return the income from the task
+   */
   Integer getAllIncome(String userName, int taskId, int hourlyWage);
 
-  Integer getAllWorkedTime(String userName, int id);
+  /**
+   * Returns the time spent with working on this task in seconds.
+   *
+   * @param userName the user
+   * @param taskId the id of the task
+   * @return the time spent on the task
+   */
+  Integer getAllWorkedTime(String userName, int taskId);
 
+  /**
+   * Returns all the income from the task, by getting the hourly wage from the project.
+   *
+   * @param userName the user
+   * @param taskId the id of the task
+   * @return the income from the task
+   */
   Integer getAllIncome(String userName, int taskId);
 }

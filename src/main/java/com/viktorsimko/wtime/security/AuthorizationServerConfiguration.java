@@ -46,7 +46,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
            .authorizedGrantTypes("password", "refresh_token")
            .authorities("ROLE_CLIENT")
            .scopes("read", "write")
-           .resourceIds(ResourceServerConfiguration.RESOURCE_ID)
            .secret("secret");
   }
 }

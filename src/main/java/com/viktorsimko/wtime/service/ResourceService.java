@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * A service for managing and getting information about {@code Resource} objects.
+ *
+ * @param <R> the concrete resource class
  */
 public interface ResourceService<R extends Resource> {
 

@@ -11,6 +11,9 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * {@code WorkInterval} specific extension of {@code ResourceServiceImpl}.
+ */
 @Service
 public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> implements WorkIntervalService {
   @Autowired
@@ -44,8 +47,8 @@ public class WorkIntervalServiceImpl extends ResourceServiceImpl<WorkInterval> i
   }
 
   @Override
-  public Integer getAllWorkedTime(String userName, int taskId) {
-    WorkInterval workInterval = getResource(userName, taskId);
+  public Integer getAllWorkedTime(String userName, int workIntervalId) {
+    WorkInterval workInterval = getResource(userName, workIntervalId);
 
     if (workInterval == null) {
       return null;
