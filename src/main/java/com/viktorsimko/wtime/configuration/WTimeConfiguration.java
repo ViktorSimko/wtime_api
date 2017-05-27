@@ -2,6 +2,8 @@ package com.viktorsimko.wtime.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -24,6 +28,8 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.viktorsimko.wtime")
 public class WTimeConfiguration extends WebMvcConfigurerAdapter {
 
+  private Logger logger = LoggerFactory.getLogger(WTimeConfiguration.class);
+
   /**
    * This method sets up and returns a pooled data source for hibernate.
    *
@@ -33,10 +39,11 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
   @Bean(destroyMethod = "close")
   public ComboPooledDataSource dataSource() throws Exception {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
-    dataSource.setDriverClass("com.mysql.jdbc.Driver");
-    dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/wtime?useSSL=false");
-    dataSource.setUser("wtime_admin");
-    dataSource.setPassword("wtime_admin");
+    Properties dbProperties = databaseProperties();
+    dataSource.setDriverClass(dbProperties.getProperty("database.driver"));
+    dataSource.setJdbcUrl(dbProperties.getProperty("database.url"));
+    dataSource.setUser(dbProperties.getProperty("database.username"));
+    dataSource.setPassword(dbProperties.getProperty("database.password"));
     dataSource.setMinPoolSize(3);
     dataSource.setMaxPoolSize(20);
     dataSource.setMaxIdleTime(30000);
@@ -83,6 +90,20 @@ public class WTimeConfiguration extends WebMvcConfigurerAdapter {
         setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         setProperty("hibernate.show_sql", "true");
         setProperty("hibernate.hbm2ddl.auto", "update");
+      }
+    };
+  }
+
+  private Properties databaseProperties() throws IOException {
+    InputStream inputStream = WTimeConfiguration.class.getClassLoader().getResourceAsStream("database.properties");
+
+    if (inputStream == null) {
+      logger.error("Database properties not found!");
+    }
+
+    return new Properties() {
+      {
+        load(inputStream);
       }
     };
   }
