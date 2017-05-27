@@ -24,6 +24,7 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
 
     if (project == null) {
       logger.info("requested project: {} for user: {} not found", projectId, userName);
+
       return null;
     }
 
@@ -38,6 +39,7 @@ public class ProjectServiceImpl extends ResourceServiceImpl<Project> implements 
 
     if (project == null) {
       logger.info("requested project: {} for user: {} not found", projectId, userName);
+
       return null;
     }
 
