@@ -21,7 +21,7 @@ import java.util.Collection;
 @RequestMapping("/projects")
 public class ProjectController {
 
-  Logger logger = LoggerFactory.getLogger(ProjectController.class);
+  private Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
   @Autowired
   private ProjectService projectService;
@@ -36,10 +36,13 @@ public class ProjectController {
    */
   @PostMapping
   public ResponseEntity<Project> postProject(Authentication authentication, @RequestBody Project project) {
+
     String userName = authentication.getName();
     project.setUser(userName);
 
     Project addedProject = projectService.addResource(project);
+
+    logger.debug("POST /projects user: {}", userName);
 
     return checkResourceCreated(addedProject);
   }
@@ -54,7 +57,7 @@ public class ProjectController {
   public ResponseEntity<Collection<Project>> getProjects(Authentication authentication) {
     String userName = authentication.getName();
 
-    logger.info("GET /projects " + userName);
+    logger.debug("GET /projects user: {}", userName);
 
     Collection<Project> projects = projectService.getResources(userName);
 
@@ -74,6 +77,8 @@ public class ProjectController {
     String userName = authentication.getName();
     Project project = projectService.getResource(userName, projectId);
 
+    logger.debug("GET /projects/{} user: {}", projectId, userName);
+
     return checkResource(project);
   }
 
@@ -89,6 +94,8 @@ public class ProjectController {
     String userName = authentication.getName();
     Integer allIncome = projectService.getAllIncome(userName, projectId);
 
+    logger.debug("GET /projects/{}/allIncome user: {}", projectId, userName);
+
     return checkResource(allIncome);
   }
 
@@ -103,6 +110,8 @@ public class ProjectController {
   public ResponseEntity<Integer> getAllWorkedTimeForProject(Authentication authentication, @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
     Integer allWorkedTime = projectService.getAllWorkedTime(userName, projectId);
+
+    logger.debug("GET /projects/{}/allWorkedTime user: {}", projectId, userName);
 
     return checkResource(allWorkedTime);
   }
@@ -122,6 +131,8 @@ public class ProjectController {
 
     Project updatedProject = projectService.updateResource(userName, projectId, updatedProjectInfo);
 
+    logger.debug("PATCH /projects/{} user: {}", projectId, userName);
+
     return checkResource(updatedProject);
   }
 
@@ -137,6 +148,8 @@ public class ProjectController {
   public ResponseEntity<Project> deleteProject(Authentication authentication, @PathVariable("projectId") int projectId) {
     String userName = authentication.getName();
     Project deletedProject = projectService.deleteResource(userName, projectId);
+
+    logger.debug("DELETE /projects/{} user: {}", projectId, userName);
 
     return checkResource(deletedProject);
   }
