@@ -14,6 +14,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A generic resourceDAO implementation.
+ *
+ * @param <R> the class of the resource
+ */
 @Transactional
 public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO<R> {
 
@@ -83,7 +88,7 @@ public abstract class ResourceDAOImpl<R extends Resource> implements ResourceDAO
           setter.invoke(resource, propertyValue);
         }
       } catch (Exception exc) {
-       // log out the exception
+          // log out the exception
       }
     }
 

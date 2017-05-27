@@ -6,6 +6,8 @@ import java.util.Collection;
 
 /**
  * Interface for accessing and manipulating resources in the database.
+ *
+ * @param <R> the concrete resource class
  */
 public interface ResourceDAO<R extends Resource> {
 
