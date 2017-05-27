@@ -2,6 +2,8 @@ package com.viktorsimko.wtime.controller;
 
 import com.viktorsimko.wtime.model.Task;
 import com.viktorsimko.wtime.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import static com.viktorsimko.wtime.util.ResourceChecker.checkResourceCreated;
  */
 @RestController
 public class TaskController {
+  private Logger logger = LoggerFactory.getLogger(TaskController.class);
 
   @Autowired
   private TaskService taskService;
@@ -34,6 +37,8 @@ public class TaskController {
     task.setUser(userName);
     Task savedTask = taskService.addResource(task);
 
+    logger.debug("POST /tasks user: {}", userName);
+
     return checkResourceCreated(savedTask);
   }
 
@@ -50,6 +55,8 @@ public class TaskController {
 
     Collection<Task> tasks = taskService.getTasks(userName, projectId);
 
+    logger.debug("GET /projects/{}/tasks user: {}", projectId, userName);
+
     return checkResource(tasks);
   }
 
@@ -64,6 +71,8 @@ public class TaskController {
     String userName = authentication.getName();
 
     Collection<Task> tasks = taskService.getResources(userName);
+
+    logger.debug("GET /tasks user: {}", userName);
 
     return checkResource(tasks);
   }
@@ -81,6 +90,8 @@ public class TaskController {
 
     Task task = taskService.getResource(userName, taskId);
 
+    logger.debug("GET /tasks/{} user: {}", taskId, userName);
+
     return checkResource(task);
   }
 
@@ -96,6 +107,8 @@ public class TaskController {
     String userName = authentication.getName();
     Integer allIncome = taskService.getAllIncome(userName, taskId);
 
+    logger.debug("GET /tasks/{}/allIncome user: {}", taskId, userName);
+
     return checkResource(allIncome);
   }
 
@@ -110,6 +123,8 @@ public class TaskController {
   public ResponseEntity<Integer> getAllWorkedTimeForProject(Authentication authentication, @PathVariable("taskId") int taskId) {
     String userName = authentication.getName();
     Integer allWorkedTime = taskService.getAllWorkedTime(userName, taskId);
+
+    logger.debug("GET /tasks/{}/allWorkedTime user: {}", taskId, userName);
 
     return checkResource(allWorkedTime);
   }
@@ -128,6 +143,8 @@ public class TaskController {
 
     Task task = taskService.updateResource(userName, taskId, updateInfo);
 
+    logger.debug("PATCH /tasks/{} user: {}", taskId, userName);
+
     return checkResource(task);
   }
 
@@ -143,6 +160,8 @@ public class TaskController {
     String userName = authentication.getName();
 
     Task task = taskService.deleteResource(userName, taskId);
+
+    logger.debug("DELETE /tasks/{} user: {}", taskId, userName);
 
     return checkResource(task);
   }
