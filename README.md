@@ -42,8 +42,9 @@ To access the resources:
 1. Send a GET to /users/register/:username/:password
 
 2. Send a POST to /oauth/token?grant_type=password&username=:username&password=:password
+   Use HTTP Basic auth with 'wtime-client' as username and 'secret' as password.
 
-3. In the response there is an access_token. Add it to the end of the private routes as a query parameter:
-    POST /tasks?access_token=:access_token
+3. In the response there is an access_token. Add it to the end of the private routes as a query parameter: 
+   POST /tasks?access_token=:access_token
 
 
