@@ -201,7 +201,7 @@ public class TaskServiceImplTest {
     when(workIntervalService.getAllIncome(userName, 3, 1100)).thenReturn(600);
 
     Integer allIncome = taskService.getAllIncome(userName, taskId, 1100);
-    assertThat(allIncome, is(equalTo(2100)));
+    assertThat(allIncome, is(equalTo(1700)));
   }
   
   @Test
@@ -231,6 +231,6 @@ public class TaskServiceImplTest {
 
     Integer allIncome = taskService.getAllIncome(userName, taskId);
 
-    assertThat(allIncome, is(equalTo(2100)));
+    assertThat(allIncome, is(equalTo(1700)));
   }
 }

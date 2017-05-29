@@ -94,7 +94,7 @@ public class TaskServiceImpl extends ResourceServiceImpl<Task> implements TaskSe
     }
 
     return workIntervalService.getWorkIntervals(userName, taskId).stream()
-      .reduce(0, (sum, workInterval) -> sum + workIntervalService.getAllIncome(userName, workInterval.getId(), hourlyWage) + task.getBonus(), (sum1, sum2) -> sum1 + sum2);
+      .mapToInt((workInterval) -> workIntervalService.getAllIncome(userName, workInterval.getId(), hourlyWage)).sum() + task.getBonus();
   }
 
   @Override
